@@ -1,0 +1,35 @@
+/** MapView Screen */
+export const SET_RECOMMENDATIONS = 'SET_RECOMMENDATIONS';
+export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION';
+export const CHANGE_REGION = 'CHANGE_REGION';
+export const CHANGE_NOTE_PLACES = 'CHANGE_NOTE_PLACES';
+export const ANIMATE_TO_COORDINATE = 'ANIMATE_TO_COORDINATE';
+export const SET_MAP_VIEW = 'SET_MAP_VIEW';
+export const SET_COORDINATES = 'SET_COORDINATES';
+export const SET_DROP_DOWN = 'SET_DROP_DOWN';
+export const SET_REF_NAVIGATION = 'SET_REF_NAVIGATION';
+export const SET_STEPS = 'SET_STEPS';
+
+/** SearchBar Screen */
+export const CHANGE_INPUT_SEARCH = 'CHANGE_INPUT_SEARCH';
+export const CLICK_TOPIC_BUTTON = 'CLICK_TOPIC_BUTTON';
+
+export const GET_DATA_FROM_API = 'GET_DATA_FROM_API';
+export const SET_SEARCH_INPUT = 'SET_SEARCH_INPUT';
+export const SET_RESULT_ITEMS = 'SET_RESULT_ITEMS';
+export const SET_DISPLAY_TOP_SEARCH_BAR = 'SET_DISPLAY_TOP_SEARCH_BAR';
+
+/** Button and Speed Screen */
+/**
+ *  * 1. SET_CURRENT_SPEED
+ * 2. SET_MAX_LIMIT_SPEED
+ */
+export const SET_CURRENT_SPEED = 'SET_CURRENT_SPEED';
+export const SET_MAX_LIMIT_SPEED = 'SET_MAX_LIMIT_SPEED';
+
+/** Report Screen */
+export const CLICK_SEND_BUTTON =  'CLICK_SEND_BUTTON';
+
+/** Police Report **/
+export const ADD_MARKER = 'ADD_MARKER';
+export const SET_NOTE_PLACES = 'SET_NOTE_PLACES';
