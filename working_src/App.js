@@ -11,6 +11,7 @@ import {
 import Main from './components/login/components/Main';
 
 import ChatUI from './components/chat';
+import NavigationApp from './navigation';
 // ====================================================
 // import LoginUIContainer from './containers/LoginUIContainer';
 
@@ -46,7 +47,8 @@ const LoginOrChat = connect(
   if (authorized) {
     return <ChatUI />;
   } else {
-    return <Main />;
+    return <NavigationApp />;
+    // return <View/>;
   }
 });
 

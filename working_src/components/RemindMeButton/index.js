@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { Images } from '../../Themes';
+import Images from '../../Themes/Images';
 import styles from './styles';
 
 // interface RemindMeProps {

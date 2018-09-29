@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import Colors from '../../Themes/Colors';
 
 const styles = StyleSheet.create({
   button: {
@@ -20,7 +21,7 @@ const styles = StyleSheet.create({
     marginRight: 7
   },
   text: {
-    fontFamily: Fonts.type.medium,
+    // fontFamily: Fonts.type.medium,
     fontSize: 11,
     color: Colors.red
   },
