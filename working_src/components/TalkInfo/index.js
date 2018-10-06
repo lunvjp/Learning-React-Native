@@ -1,8 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { View, Text } from 'react-native';
 
-import RemindMeButton from '../RemindMeButton'
-import SocialMediaButton from '../SocialMediaButton'
+import RemindMeButton from '../RemindMeButton';
+import SocialMediaButton from '../SocialMediaButton';
 import { format } from 'date-fns'
 import styles from './styles';
 
@@ -42,8 +42,8 @@ const exampleProps = {
 const TalkInfo = (props) => {
   const { start, duration, remindMe, toggleRemindMe, isFinished, showWhenFinished } = props
   const formattedStart = format(start, 'h:mmA')
-  // const showRemindMe = !isFinished
-  // const showSocialMedia = isFinished && showWhenFinished
+  const showRemindMe = !isFinished
+  const showSocialMedia = isFinished && showWhenFinished
 
   return (
     <View style={styles.container}>
