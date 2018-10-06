@@ -5,6 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
+import { Font } from 'expo';
 
 // ====================================================
 // import LoginUI from './components/LoginUI';
@@ -23,6 +24,7 @@ import {Provider, connect} from 'react-redux';
 import logger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 // import MessageList from './components/MessageList';
+import QuestionScreen from './screens/QuestionScreen';
 
 const store = createStore(
   rootReducer,
@@ -47,16 +49,27 @@ const LoginOrChat = connect(
   if (authorized) {
     return <ChatUI />;
   } else {
-    return <NavigationApp />;
-    // return <View/>;
+    // return <NavigationApp />;
+    return <QuestionScreen />;
   }
 });
 
-const App = () => {
-  return (
-    <Provider store={store}>
-      <LoginOrChat />
-    </Provider>
-  );
-};
+class App extends Component {
+  componentDidMount() {
+    Font.loadAsync({
+      'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf'),
+      'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
+      'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf'),
+    });
+  }
+
+  render() {
+    return (
+      <Provider store={store}>
+        <LoginOrChat />
+      </Provider>
+    );
+  }
+}
+
 export default App;

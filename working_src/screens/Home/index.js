@@ -7,11 +7,11 @@ import { SafeAreaView } from 'react-navigation';
 // import Chat from '../../components/chat';
 // import RemindMeButton from '../../components/RemindMeButton';
 // import RemindMeButton from '../../components/SocialMediaButton';
-// import topicItem from '../../components/topicItem';
+// import TalkInfo from '../../components/TalkInfo';
 // import topicList from '../../components/topicList';
 
 import styles from './styles';
-import { ExampleRoutes } from '../../config/nav';
+import config from '../../config/nav';
 
 /**
  * Main,
@@ -25,31 +25,41 @@ const ExampleInfo = {
   Main : {
     name : 'Login'
   },
-  ChatUI : {
+  // RemindMeButton : {
+  //   name : 'RemindMeButton'
+  // },
+  // SocialMediaButton : {
+  //   name : 'SocialMediaButton'
+  // },
+  // TalkInfo : {
+  //   name : 'TalkInfo'
+  // },
+  ChatScreen : {
     name : 'Chat'
   },
-  RemindMeButton : {
-    name : 'RemindMeButton'
+  MessageScreen : {
+    name : 'MessageScreen'
   },
-  SocialMediaButton : {
-    name : 'RemindMeButton'
-  },
-  TalkInfo : {
-    name : 'topicItem'
+  ListTopicScreen : {
+    name : 'ListTopicScreen'
   },
   // topicList : {
   //   name : 'topicList'
-  // }
+  // },
+  QuestionScreen : {
+    name : 'QuestionScreen'
+  }
 };
 
 class HomeScreen extends Component {
 
   componentDidMount() {
-    console.log(ExampleRoutes);
+    console.log(config.ExampleRoutes);
   }
 
   render() {
     const { navigation } = this.props;
+    const { ExampleRoutes } = config;
 
     return (
       <View style={styles.container}>

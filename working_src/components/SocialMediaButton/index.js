@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 // ============
 import styles from './styles';
 // import ExamplesRegistry from '../Services/ExamplesRegistry'
-import { Images } from '../../Themes/Images'
+import Images from '../../Themes/Images'
 
 // Example
 // ExamplesRegistry.addComponentExample('SocialMediaButton', () =>
@@ -40,12 +40,12 @@ const SocialMediaButton = (props) => {
 
 export default SocialMediaButton;
 
-// SocialMediaButton.propTypes = {
-//   style : PropTypes.object, // PropTypes.object.isRequired
-//   network : PropTypes.oneOf(['twitter', 'github']),
-//   spacing : PropTypes.oneOf(['left', 'right']),
-//   onPress : PropTypes.func
-// };
+SocialMediaButton.propTypes = {
+  style : PropTypes.object, // PropTypes.object.isRequired
+  network : PropTypes.oneOf(['twitter', 'github']),
+  spacing : PropTypes.oneOf(['left', 'right']),
+  onPress : PropTypes.func
+};
 
 // SocialMediaButton.defaultProps = {
 //   label : '',
