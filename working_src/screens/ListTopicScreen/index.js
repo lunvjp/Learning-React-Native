@@ -20,7 +20,7 @@ const data = [
     title : 'Friends'
   },
   {
-    title : 'Home town'
+    title : 'Hometown'
   },
   {
     title : 'Shopping'

@@ -25,6 +25,8 @@ import logger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 // import MessageList from './components/MessageList';
 import QuestionScreen from './screens/QuestionScreen';
+import LazyloadScrollExample from '../testComponents/LazyLoad';
+
 
 const store = createStore(
   rootReducer,
@@ -50,7 +52,8 @@ const LoginOrChat = connect(
     return <ChatUI />;
   } else {
     // return <NavigationApp />;
-    return <QuestionScreen />;
+    // return <QuestionScreen />;
+    return <LazyloadScrollExample/>;
   }
 });
 

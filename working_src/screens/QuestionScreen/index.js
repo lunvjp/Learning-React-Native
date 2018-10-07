@@ -3,16 +3,28 @@ import { StyleSheet, View, Text, FlatList } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
 import uuid from 'uuidv4';
 
+import {getQuestionByTopic, getQuestionByTopicAsync} from '../../helper/functions';
+import styles from './styles';
+
 const TopTitle = () => {
   return (
     <View style={styles.row}>
       <View style={styles.starNote}>
-        <FontAwesome name="star" size={32} color="white"/>
+        <FontAwesome name="star" size={20} color="white"/>
       </View>
       <Text style={styles.title}>QUESTIONS FOR YOU</Text>
     </View>
   );
 }
+
+// const QuestionItem = ({item}) => {
+//   return(
+//     <View>
+//       <Text>{item.name}</Text>
+//       <Text>{item.totalAnswer} Answers</Text>
+//     </View>
+//   );
+// }
 
 const questionList = [
   {
@@ -43,11 +55,33 @@ const questionList = [
 
 class QuestionScreen extends Component {
 
-  renderItem = (item) => {
+  state = {
+    data : []
+  }
+
+  async fetchQuestions () {
+    const questionsData = await getQuestionByTopicAsync();
+    this.setState({
+      data : questionsData
+    });
+  }
+
+  componentWillMount() {
+    this.fetchQuestions();
+  }
+
+  // static getDerivedStateFromProps (props, state) {
+  //   if (!state.data)
+  //     return {
+  //       data : getQuestionByTopic('friends')
+  //     }
+  // }
+
+  renderItem = ({item}) => { 
     return (
-      <View>
-        <Text>{item.name}</Text>
-        <Text>{item.totalAnswer} Answers</Text>
+      <View style={styles.questionItem}>
+        <Text style={styles.questionItemTitle}>{item.title}</Text>
+        <Text style={styles.questionItemAnswerTitle}>{item.totalAnswer} Answers</Text>
       </View>
     );
   }
@@ -57,42 +91,13 @@ class QuestionScreen extends Component {
       <View style={styles.container}>
         <TopTitle/>
         <FlatList
-          data={questionList}
-          renderItem={this.renderItem(item)}
+          data={this.state.data}
+          renderItem={this.renderItem}
           keyExtractor={item => uuid()}
         />
-      
       </View>
     );
   }
 }
 
 export default QuestionScreen;
-
-const styles = StyleSheet.create({
-  container : {
-
-  },
-  row : {
-    padding : 10,
-    // flex : 1,
-    // backgroundColor : 'green',
-    flexDirection : 'row',
-    alignItems: 'center'
-  },
-  starNote : {
-    // flex : 1,
-    // width : 100,
-    alignSelf : 'center',
-    padding : 8,
-    backgroundColor : 'red',
-    // borderWidth : 5,
-    // borderColor : 'green',
-    borderRadius : 5,
-    marginRight : 10
-  },
-  title : {
-    // flex : 1
-    backgroundColor : 'green',
-  }
-});
