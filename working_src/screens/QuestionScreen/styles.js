@@ -4,6 +4,14 @@ const styles = StyleSheet.create({
   container : {
     paddingTop : 20
   },
+  outerContainerStyles : {
+    padding : 0,
+    margin : 0,
+    backgroundColor: 'transparent'
+  },
+  innerContainerStyles : {
+    justifyContent: 'space-around'
+  },
   row : {
     padding : 10,
     flexDirection : 'row',

@@ -1,22 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, FlatList, ActivityIndicator, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { AntDesign, FontAwesome } from '@expo/vector-icons';
-import { 
-  // Text,
-  Container,
-  Header,
-  Content,
-  List,
-  ListItem,
-  Left,
-  Body,
-  Icon,
-  Right,
-  Title,
-  Button,
-  Picker 
-} from 'native-base';
-
+// import GiftedListView from 'react-native-gifted-listview';
+// import RefreshableListView from 'react-native-refreshable-listview';
+import { List, ListItem, Header } from 'react-native-elements';
+import { ListItem as NBListItem, Left, Body, Icon as NBIcon, Right, Title } from "native-base";
 import uuid from 'uuidv4';
 
 import {getQuestionByTopic, getQuestionByTopicAsync} from '../../helper/functions';
@@ -24,12 +12,10 @@ import styles from './styles';
 
 const TopTitle = () => {
   return (
-    <View 
-    // style={styles.row}
-    >
-      {/* <View style={styles.starNote}>
+    <View style={styles.row}>
+      <View style={styles.starNote}>
         <FontAwesome name="star" size={20} color="white"/>
-      </View> */}
+      </View>
       <Text style={styles.title}>QUESTIONS FOR YOU</Text>
     </View>
   );
@@ -40,19 +26,11 @@ const TopTitle = () => {
 
 class QuestionScreen extends Component {
 
-  static navigationOptions = {
-    headerTitle:
-      <Body>
-        <TopTitle/>
-      </Body>,
-  };
-
   state = {
     data : [],
     page : 1,
-    loading : true,
-    error : null,
-    stickyHeaderIndices: []
+    loading : false,
+    error : null
   }
 
   // TODO:
@@ -62,13 +40,12 @@ class QuestionScreen extends Component {
   // 3. add Load more feature from FlatList
 
   fetchQuestions = async () => {
-    // console.log('fetchQuestions');
     const { page } = this.state;
     this.setState({ loading : true });
     try {
       const questionsData = await getQuestionByTopicAsync('travelling', page);
       this.setState({
-        data : this.state.data.concat(questionsData),
+        data : questionsData,
         loading : false
       });
     } catch(error) {
@@ -87,16 +64,12 @@ class QuestionScreen extends Component {
   //     }
   // }
 
-  renderItem = ({item}) => {
+  renderItem = ({item}) => { 
     return (
-      <TouchableHighlight onPress={() => {
-        this.props.navigation.navigate('AnswerQuestionScreen');
-      }}>
-        <View style={styles.questionItem}>
-          <Text style={styles.questionItemTitle}>{item.title}</Text>
-          <Text style={styles.questionItemAnswerTitle}>{item.totalAnswer} Answers</Text>
-        </View>
-      </TouchableHighlight>
+      <View style={styles.questionItem}>
+        <Text style={styles.questionItemTitle}>{item.title}</Text>
+        <Text style={styles.questionItemAnswerTitle}>{item.totalAnswer} Answers</Text>
+      </View>
     );
   }
 
@@ -107,11 +80,12 @@ class QuestionScreen extends Component {
   }
 
   renderFooter = () => {
-    return (this.state.loading && 
+    if (!this.state.loading) return null;
+    return (
       <View>
         <ActivityIndicator size="large" color="#0000ff" />
       </View>
-    )
+    );
   }
 
   /* TODO: Custom question item like this  */
@@ -132,24 +106,35 @@ class QuestionScreen extends Component {
    * - call func get data after set.
    */
   handleLoadMore = () => {
-    this.setState({ loading : true, page : this.state.page + 1 }, () => {
+    this.setState({ page : this.state.page + 1 }, () => {
       this.fetchQuestions();
     });
   }
 
   render() {
     return (
-      <Container>
-        
-        <FlatList
+      <View>
+        <Header
+          centerComponent={<TopTitle/>}
+          outerContainerStyles={styles.outerContainerStyles}
+          innerContainerStyles={styles.innerContainerStyles}
+        />
+        {/* <List> */}
+          <FlatList
+            style={{
+              // backgroundColor : 'red'
+            }}
             data={this.state.data}
             renderItem={this.renderItem}
             keyExtractor={item => uuid()}
-            onEndReachedThreshold={0.7}
-            onEndReached={this.handleLoadMore}
+            // onEndReachedThreshold={0.7}
+            // onEndReached={this.handleLoadMore}
+            // renderHeader
+            // ListHeaderComponent={this.renderHeader}
             ListFooterComponent={this.renderFooter}
           />
-      </Container>
+      {/* </List> */}
+      </View>
     );
   }
 }

@@ -1,3 +1,5 @@
+import {createStackNavigator} from 'react-navigation';
+
 import Main from '../components/login/components/Main';
 // import RemindMeButton from '../components/RemindMeButton';
 // import SocialMediaButton from '../components/SocialMediaButton';
@@ -8,6 +10,7 @@ import ChatScreen from '../screens/ChatScreen';
 import MessageScreen from '../screens/MessageScreen';
 import ListTopicScreen from '../screens/ListTopicScreen';
 import QuestionScreen from '../screens/QuestionScreen';
+import AnswerQuestionScreen from '../screens/AnswerQuestionScreen';
 
 // const ExampleRoutes = {
 //   Login,
@@ -17,6 +20,15 @@ import QuestionScreen from '../screens/QuestionScreen';
 //   TalkInfo,
 //   topicList
 // };
+
+const ListAndUserStack = createStackNavigator({
+  QuestionScreen : {
+    screen : QuestionScreen
+  },
+  AnswerQuestionScreen : {
+    screen : AnswerQuestionScreen
+  }
+});
 
 export default {
   ExampleRoutes : {
@@ -28,6 +40,8 @@ export default {
     MessageScreen,
     ListTopicScreen,
     // topicList
-    QuestionScreen
+    // QuestionScreen,
+    // AnswerQuestionScreen,
+    ListAndUserStack
   }
 }

@@ -24,3 +24,5 @@ import { View } from 'react-native';
 // Run App
 import App from './working_src/App';
 export default App;
+
+console.disableYellowBox = true;

@@ -46,9 +46,12 @@ const ExampleInfo = {
   // topicList : {
   //   name : 'topicList'
   // },
-  QuestionScreen : {
-    name : 'QuestionScreen'
-  }
+  ListAndUserStack : {
+    name : 'ListAndUserStack'
+  },
+  // AnswerQuestionScreen : {
+  //   name : 'AnswerQuestionScreen'
+  // }
 };
 
 class HomeScreen extends Component {
