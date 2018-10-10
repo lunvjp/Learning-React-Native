@@ -51,31 +51,6 @@ const store = createStore(
   )
 );
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <Provider store={store}>
-//         <LoginUIContainer />
-//       </Provider>
-//     );
-//   }
-// }
-// TODO: ISSUES
-const LoginOrChat = connect(
-  (state) => ({
-    authorized : state.user.authorized
-  })
-)(({authorized}) => {
-  if (authorized) {
-    return <ChatUI />;
-  } else {
-    return <ListAndUserStack />;
-    // return <AnswerQuestionScreen/>;
-    // return <LazyloadScrollExample/>;
-    // return <ListExample/>;
-  }
-});
-
 class App extends Component {
 
   state = {
@@ -109,7 +84,6 @@ class App extends Component {
     return (
       <Provider store={store}>
         <AppNavigator />
-        {/* <LoginOrChat /> */}
       </Provider>
     );
   }

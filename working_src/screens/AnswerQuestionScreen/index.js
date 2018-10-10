@@ -19,39 +19,39 @@ import styles from './styles';
 
 class AnswerQuestionScreen extends Component {
 
+  static navigationOptions = {
+    title: 'Answer',
+    headerRight : (
+      <Button hasText transparent
+        onPress={this._onPressButton}
+      >
+        <Text>Submit</Text>
+      </Button>
+    )
+    // headerTitle:
+    //   <Body>
+    //     <TopTitle/>
+    //   </Body>,
+  };
+
   _onPressButton = () => {
-    console.log('_onPressButton submit');
-    console.log(this.props);
+    /* TODO: Make a request to Firebase */
+    this.props.navigation.goBack();
   }
   
   render() {
+    const { navigation } = this.props;
+    const title = navigation.getParam('title', 'Question Title');
+
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button transparent>
-              <Icon name='close' type='EvilIcons'/>
-            </Button>
-          </Left>
-          <Body>
-            <Title>Answer</Title>
-          </Body>
-          <Right>
-            {/* <TouchableHighlight onPress={this._onPressButton}>
-              <Text>Submit</Text>
-            </TouchableHighlight> */}
-            <Button hasText transparent>
-              <Text>Submit</Text>
-            </Button>
-          </Right>
-        </Header>
 
         <Content padder
           style={{
             // backgroundColor : 'green',
           }}
         >
-          <Text style={styles.questionItemTitle}>What are cool things?</Text>
+          <Text style={styles.questionItemTitle}>{title}</Text>
           <TextInput
               style={{
                 height: 200, 
@@ -69,6 +69,12 @@ class AnswerQuestionScreen extends Component {
               // maxLength = {40}
               // value={this.state.text}
             />
+
+            <Button hasText transparent
+              onPress={this._onPressButton}
+            >
+              <Text>Submit</Text>
+            </Button>
         </Content>
 
      

@@ -90,7 +90,7 @@ class QuestionScreen extends Component {
   renderItem = ({item}) => {
     return (
       <TouchableHighlight onPress={() => {
-        this.props.navigation.navigate('AnswerQuestionScreen');
+        this.props.navigation.navigate('AnswerQuestionScreen', item);
       }}>
         <View style={styles.questionItem}>
           <Text style={styles.questionItemTitle}>{item.title}</Text>
