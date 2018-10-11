@@ -19,7 +19,9 @@ const Root = createStackNavigator({
   },
   AnswerQuestionScreen : {
     screen : AnswerQuestionScreen
-  }
+  },
+  
+  
 });
 
 // const Root = createStackNavigator({
