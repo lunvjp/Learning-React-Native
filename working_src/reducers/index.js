@@ -14,7 +14,6 @@ const rootReducer = combineReducers({
 //   messages,
 //   meta,
   nav : navigation,
-  user,
-  
+  user
 });
 export default rootReducer;

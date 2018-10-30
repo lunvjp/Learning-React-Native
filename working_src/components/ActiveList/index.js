@@ -6,8 +6,8 @@ import { users } from '../../assets/fake_data';
 
 export default class ActiveList extends Component {
   componentDidMount() {
-    console.log('inside ActiveList now');
-    console.log(users);
+    // console.log('inside ActiveList now');
+    // console.log(users);
   }
   
   renderItem = ({ item }) => {

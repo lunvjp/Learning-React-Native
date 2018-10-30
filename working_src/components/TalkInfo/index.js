@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 import RemindMeButton from '../RemindMeButton';
 import SocialMediaButton from '../SocialMediaButton';
@@ -40,10 +41,19 @@ const exampleProps = {
 };
 
 const TalkInfo = (props) => {
-  const { start, duration, remindMe, toggleRemindMe, isFinished, showWhenFinished } = props
-  const formattedStart = format(start, 'h:mmA')
-  const showRemindMe = !isFinished
-  const showSocialMedia = isFinished && showWhenFinished
+  const { 
+    // start, 
+    
+    duration, 
+    
+    // remindMe,
+    toggleRemindMe, 
+    // isFinished, 
+    // showWhenFinished 
+  } = props
+  // const formattedStart = format(start, 'h:mmA')
+  // const showRemindMe = !isFinished
+  // const showSocialMedia = isFinished && showWhenFinished
 
   return (
     <View style={styles.container}>
@@ -53,7 +63,7 @@ const TalkInfo = (props) => {
             Start
           </Text>
           <Text style={styles.detailText}>
-            {formattedStart}
+            {/* {formattedStart} */}
           </Text>
         </View>
         <View style={styles.detail}>
@@ -65,17 +75,45 @@ const TalkInfo = (props) => {
           </Text>
         </View>
       </View>
-      {showRemindMe &&
-        <View style={styles.remindMe}>
-          <RemindMeButton onPress={toggleRemindMe} on={remindMe} />
-        </View>
-      }
-      {showSocialMedia &&
+      {/* {showRemindMe &&
+        
+      } */}
+      <View style={[styles.remindMe, {
+        // flexDirection : 'column',
+        // backgroundColor : 'green'
+      }]}>
+        {/* <TouchableOpacity 
+          style={{
+            // flex : 1,
+            backgroundColor : 'red',
+            borderRadius : 5
+          }}
+          onPress={() => {
+            console.log('Question Screens');
+          }}
+        >
+          <View>
+            <FontAwesome name='question' size={20} color="white" />
+          </View>
+        </TouchableOpacity> */}
+        {/* <RemindMeButton 
+          onPress={() => {
+            console.log('Question button');
+          }}
+        /> */}
+        <RemindMeButton 
+          onPress={() => {
+            console.log('Clicked Chat button');
+          }} 
+          // on={remindMe} 
+        />
+      </View>
+      {/* {showSocialMedia &&
         <View style={styles.socialButtons}>
           {props.onPressTwitter && <SocialMediaButton network='twitter' onPress={props.onPressTwitter} /> }
           {props.onPressGithub && <SocialMediaButton network='github' onPress={props.onPressGithub} /> }
         </View>
-      }
+      } */}
     </View>
   )
 }

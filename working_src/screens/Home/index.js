@@ -57,7 +57,7 @@ const ExampleInfo = {
 class HomeScreen extends Component {
 
   componentDidMount() {
-    console.log(config.ExampleRoutes);
+    // console.log(config.ExampleRoutes);
   }
 
   render() {

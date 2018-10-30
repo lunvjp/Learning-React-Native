@@ -101,6 +101,7 @@ class TalkDetail extends React.Component {
             <TalkInfo
               start={new Date(this.props.eventStart)}
               duration={Number(this.props.duration)}
+              // duration={30}
               remindMe={this.isSpecial()}
               toggleRemindMe={SBHelper.toggleReminder(title, eventStart, this.isSpecial(), setReminder, removeReminder)}
               onPressGithub={this.props.onPressGithub}

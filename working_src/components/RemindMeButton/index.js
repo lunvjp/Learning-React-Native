@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Entypo } from '@expo/vector-icons';
+
 import Images from '../../Themes/Images';
 import styles from './styles';
 
@@ -9,16 +11,18 @@ import styles from './styles';
 // }
 
 const RemindMeButton = (props) => {
-  const { on, onPress } = props
-  const icon = on ? Images.activeNotificationIcon : Images.inactiveNotificationIcon
-  const buttonText = on ? 'Turn Off' : 'Remind Me'
+  // const { on, onPress } = props
+  const { onPress } = props
+  // const icon = on ? Images.activeNotificationIcon : Images.inactiveNotificationIcon
+  // const buttonText = on ? 'Turn Off' : 'Remind Me'
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <View style={[styles.button, on && styles.activeButton]}>
-        <Image source={icon} style={styles.icon} />
-        <Text style={[styles.text, on && styles.activeText]}>
-          {buttonText}
+      <View style={[styles.button, styles.activeButton]}>
+        {/* <Image source={icon} style={styles.icon} /> */}
+        <Entypo name='chat' size={20} color="white" style={styles.icon} />
+        <Text style={[styles.text, styles.activeText]}>
+          Chat
         </Text>
       </View>
     </TouchableOpacity>

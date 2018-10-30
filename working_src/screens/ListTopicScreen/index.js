@@ -33,31 +33,36 @@ const data = [
 // ScheduleScreen
 class ListTopicScreen extends Component {
 
-  constructor(props) {
-    super(props);
+  // constructor(props) {
+  //   super(props);
 
-    // const data = addSpecials(specialTalks, eventsByDay[activeDay])
-  }
+  //   const data = addSpecials(specialTalks, eventsByDay[activeDay])
+  // }
 
   componentDidMount() {
-    console.log(uuid());
-    console.log(typeof uuid());
+    // console.log(uuid());
+    // console.log(typeof uuid());
   }
 
   onEventPress = (item) => {
-    console.log('Jack onEventPress');
-    return;
+    // console.log('Click TOPIC');
+    // console.log(item);
+    // return;
 
-    // const { navigation } = this.props;
+    const { navigation } = this.props;
+    // console.log(navigation);
+    navigation.navigate('QuestionScreen');
     // navigation.navigate(''); // Import some screens right here.
     // console.log();
   }
   
-  renderItem({item}) {
+  renderItem = ({item}) => {
+    console.log(item);
     return (
       <Talk
-        name={item.name}
+        // name={item.name}
         title={item.title}
+        duration={30}
         onPress={() => this.onEventPress(item)}
       />
     );
@@ -75,13 +80,13 @@ class ListTopicScreen extends Component {
         <FlatList
           ref='scheduleList'
           data={data}
-          // extraData={this.props}
+          extraData={this.props}
           renderItem={this.renderItem}
           // keyExtractor={(item, idx) => item.eventStart}
-          // keyExtractor={uuid()}
-          // contentContainerStyle={styles.listContent}
+          keyExtractor={item => uuid()}
+          contentContainerStyle={styles.listContent}
           // getItemLayout={this.getItemLayout}
-          // showsVerticalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
         />
       </PurpleGradient>
     )

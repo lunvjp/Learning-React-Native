@@ -15,16 +15,32 @@ import Root from '../navigation/Root';
 const initialState = Root.router.getStateForAction(NavigationActions.init());
 
 export default (state = initialState, action) => {
-  let nextState;
-  switch(action.type) {
-    case 'Login':
-      nextState = Root.router.getStateForAction(
-        NavigationActions.navigate({ routeName: 'Login' }),
-        state
-      );
-    break;
-  }
-  newState = Root.router.getStateForAction(action, state);
+  // let nextState;
+  // console.log(action);
+  // switch(action.type) {
+  //   case 'LoginScreen':
+  //     nextState = Root.router.getStateForAction(
+  //       NavigationActions.navigate({ routeName: 'LoginScreen' }),
+  //       state
+  //     );
+  //     break;
+  //   case 'ListTopic':
+  //     nextState = Root.router.getStateForAction(
+  //       NavigationActions.navigate({ routeName: 'ListTopic' }),
+  //       state
+  //     );
+  //     break;
+  //   case 'Chat':
+  //     nextState = Root.router.getStateForAction(
+  //       NavigationActions.navigate({ routeName: 'Chat' }),
+  //       state
+  //     );
+  //     break;
+  //   default : break
+  // }
+  
+  // return Navigator.router.getStateForAction(action, state)
+  let newState = Root.router.getStateForAction(action, state);
   return newState || state;
 };
 // ======================================

@@ -20,7 +20,7 @@ export const getQuestionByTopicAsync = (slug, page) => {
   // });
 
   let url = `${DATA_API}/question?filter[topic]=${slug}&page=${page}`;
-  console.log(url);
+  // console.log(url);
   // let url = `${DATA_API}/question?${queryQuestions}`;
   return new Promise((resolve, reject) => {
     fetch(url)

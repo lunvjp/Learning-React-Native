@@ -14,6 +14,7 @@ import {
   Button,
   Picker 
 } from 'native-base';
+import { Feather } from '@expo/vector-icons';
 
 import ListAnswers from './ListAnswers';
 import styles from './styles';
@@ -23,12 +24,27 @@ class AnswerQuestionScreen extends Component {
   static navigationOptions = {
     title: 'Answer',
     // headerRight : (
-    //   <Button hasText transparent
-    //     onPress={this._onPressButton}
-    //   >
-    //     <Text>Submit</Text>
+    //   <Button transparent
+    //     // hasText bordered info
+    //     style={{
+    //       marginRight : 5
+    //     }}
+    //     onPress={() => this._onPressButton}
+    //     >
+    //     <Feather name='edit' size={30}/>
     //   </Button>
-    // )
+    // ),
+    headerRight : (
+      <TouchableHighlight
+        // hasText bordered info
+        style={{
+          marginRight : 5
+        }}
+        onPress={() => this._onPressButton}
+        >
+        <Feather name='edit' size={30}/>
+      </TouchableHighlight>
+    )
     // headerTitle:
     //   <Body>
     //     <TopTitle/>
@@ -37,7 +53,8 @@ class AnswerQuestionScreen extends Component {
 
   _onPressButton = () => {
     /* TODO: Make a request to Firebase */
-    this.props.navigation.goBack();
+    console.log(this.props);
+    this.props.navigation.navigate('EditSpeechForTopicScreen');
   }
   
   render() {
@@ -88,4 +105,11 @@ export default AnswerQuestionScreen;
           // maxLength = {40}
           // value={this.state.text}
         />
+
+// Button on the Right side of Header
+        <Button hasText transparent
+        onPress={this._onPressButton}
+      >
+        <Text>Submit</Text>
+      </Button>
  */

@@ -87,9 +87,15 @@ class QuestionScreen extends Component {
   //     }
   // }
 
+  // onClickQuestion = () => {
+  //   console.log(this.props.navigation);
+  //   this.props.navigation.navigate('AnswerQuestionScreen', item);
+  // }
+
   renderItem = ({item}) => {
     return (
       <TouchableHighlight onPress={() => {
+        console.log(this.props.navigation);
         this.props.navigation.navigate('AnswerQuestionScreen', item);
       }}>
         <View style={styles.questionItem}>

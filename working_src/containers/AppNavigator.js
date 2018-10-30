@@ -23,9 +23,8 @@ const middleware = createReactNavigationReduxMiddleware(
 // Root = RootNavigator
 const AppWithNavigationState = reduxifyNavigator(Root, 'root');
 const mapStateToProps = (state) => ({
-  state: state.nav
+  state : state.nav
 });
 const AppNavigator = connect(mapStateToProps)(AppWithNavigationState);
-// export default AppNavigator;
 
 export { AppNavigator, middleware };

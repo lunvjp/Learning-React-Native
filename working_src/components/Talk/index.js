@@ -76,8 +76,9 @@ export default class Talk extends React.Component {
     //   removeReminder
     // } = this.props
     const {
-      name,
-      title
+      // name,
+      title,
+      duration
     } = this.props
 
     // const animatedStyle = {
@@ -97,21 +98,31 @@ export default class Talk extends React.Component {
         <TouchableWithoutFeedback
           // onPressIn={this.handlePressIn}
           // onPressOut={this.handlePressOut}
-          // onPress={this.props.onPress}
+          onPress={this.props.onPress}
         >
           <Animated.View style={containerStyles}>
             <View style={styles.info}>
               <View style={styles.infoText}>
-                <Text style={styles.name}>{name}</Text>
+                {/* <Text style={styles.name}>{name}</Text> */}
                 <Text style={styles.title}>{title}</Text>
               </View>
               <FadeIn>
                 <Image style={styles.avatar} source={{uri: avatarURL}} />
               </FadeIn>
+              <FadeIn style={{
+                marginLeft : 5
+              }}>
+                <Image style={styles.avatar} source={{uri: avatarURL}} />
+              </FadeIn>
+              <FadeIn style={{
+                marginLeft : 5
+              }}>
+                <Image style={styles.avatar} source={{uri: avatarURL}} />
+              </FadeIn>
             </View>
             <TalkInfo
               // start={start}
-              // duration={duration}
+              duration={duration}
               // remindMe={this.props.isSpecial}
               // isFinished={isFinished || isActive}
               // showWhenFinished={this.props.showWhenFinished}

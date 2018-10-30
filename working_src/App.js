@@ -20,34 +20,37 @@ import rootReducer from './reducers';
 import {Provider, connect} from 'react-redux';
 import { createLogger } from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+import Root from './navigation/Root';
 
 /* Import Component */
-import QuestionScreen from './screens/QuestionScreen';
-import AnswerQuestionScreen from './screens/AnswerQuestionScreen';
-import {createStackNavigator} from 'react-navigation';
-const ListAndUserStack = createStackNavigator({
-  QuestionScreen : {
-    screen : QuestionScreen,
-    // navigationOptions: {
-    //   title: 'Details',
-    //   // gesturesEnabled: false,
-    //   header: null
-    // }
-  },
-  AnswerQuestionScreen : {
-    screen : AnswerQuestionScreen
-  }
-});
+// import QuestionScreen from './screens/QuestionScreen';
+// import AnswerQuestionScreen from './screens/AnswerQuestionScreen';
+// import {createStackNavigator} from 'react-navigation';
+// const ListAndUserStack = createStackNavigator({
+//   QuestionScreen : {
+//     screen : QuestionScreen,
+//     // navigationOptions: {
+//     //   title: 'Details',
+//     //   // gesturesEnabled: false,
+//     //   header: null
+//     // }
+//   },
+//   AnswerQuestionScreen : {
+//     screen : AnswerQuestionScreen
+//   }
+// });
 // ====================================================
-import { AppNavigator, middleware } from './containers/AppNavigator';
+import { AppNavigator,
+  middleware
+} from './containers/AppNavigator';
 
 const loggerMiddleware = createLogger();
 const store = createStore(
   rootReducer,
   applyMiddleware(
-    middleware, 
-    thunkMiddleware, 
-    loggerMiddleware  
+    middleware,
+    thunkMiddleware,
+    loggerMiddleware
   )
 );
 
@@ -84,6 +87,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <AppNavigator />
+        {/*<Root />*/}
       </Provider>
     );
   }
