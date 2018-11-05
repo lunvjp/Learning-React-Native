@@ -6,4 +6,5 @@ export const USER_START_AUTHORIZING = 'USER_START_AUTHORIZING';
 export const USER_AUTHORIZED = 'USER_AUTHORIZED';
 export const LOGIN = createActionSet('LOGIN');
 export const GET_AUTH_USER = createActionSet('GET_AUTH_USER');
+export const LOGOUT = createActionSet('LOGOUT');
 // export const START_FETCHING_MESSAGES = 'START_FETCHING_MESSAGES';

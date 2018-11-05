@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { AsyncStorage } from 'react-native';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Logo from './Logo';
@@ -7,13 +8,24 @@ import Wallpaper from './Wallpaper';
 import ButtonSubmit from './ButtonSubmit';
 import SignupSection from './SignupSection';
 
+import Alert from './Alert'
 import LoginButton from '../../containers/LoginButton';
+import LoginFacebookButton from '../../containers/LoginFacebookButton';
 
 class LoginScreen extends Component {
   state = {
-    email : 'LoginScreen.state.email',
-    password : 'LoginScreen.state.password'
+    email : '',
+    password : ''
   }
+  // constructor(props) {
+  //   super(props);
+  //   this._bootstrapAsync();
+  // }
+  // _bootstrapAsync = async () => {
+  //   const userToken = await AsyncStorage.getItem('accessToken');
+  //   console.log('Get access Token from Async Storage');
+  //   console.log(userToken);
+  // }
   onChangeEmail = (text) => {
     this.setState({
       email : text
@@ -28,14 +40,17 @@ class LoginScreen extends Component {
     return (
       <Wallpaper>
         <Logo />
+        {/* <Alert/> */}
         <Form
           onChangeEmail={this.onChangeEmail}
           onChangePassword={this.onChangePassword}/>
-        <SignupSection />
+        
         <LoginButton
           {...this.props}
           email={this.state.email}
           password={this.state.password} />
+        <LoginFacebookButton/>
+        <SignupSection />
         {/*<ButtonSubmit />*/}
       </Wallpaper>
     );

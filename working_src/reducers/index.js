@@ -1,7 +1,7 @@
 import { createNavigationReducer } from 'react-navigation-redux-helpers';
 // import Root from '../navigation/Root';
 
-import user from './user';
+import auth from './auth';
 // import meta from './meta';
 // import messages from './messages';
 import navigation from './navigation';
@@ -14,6 +14,6 @@ const rootReducer = combineReducers({
 //   messages,
 //   meta,
   nav : navigation,
-  user
+  auth
 });
 export default rootReducer;

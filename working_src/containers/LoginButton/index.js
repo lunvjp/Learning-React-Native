@@ -12,6 +12,7 @@ import {
   Image,
   Alert,
   View,
+  AsyncStorage
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
@@ -45,6 +46,7 @@ class LoginButton extends Component {
       dispatch, email, password } = this.props;
 
     if (this.state.isLoading) return;
+    if (!(email && password)) return
 
     this.setState({isLoading: true});
     Animated.timing(this.buttonAnimated, {
@@ -54,33 +56,81 @@ class LoginButton extends Component {
     }).start();
 
     // TODO: Send request to Server.
-    // http://english-chat-app.herokuapp.com/home
-    // Call other function
-    // TODO: get Email and Password
-    dispatch(loginDefault(email, password)).then((data) => {
-      console.log(data);
-      dispatch(getUser()).then((result) => {
-        // Work with entire screens
+    dispatch(loginDefault(email, password)).then((result) => {
+      // console.log(data);
+      // await AsyncStorage.setItem('accessToken', 'abc');
 
-        // Open pink screen.
-        setTimeout(() => {
-          this._onGrow();
-        }, 2000);
+      // After login
+      // setTimeout(() => {
+      //   // Alert('this._onGrow');
+      //   this._onGrow();
+      // }, 2000);
+      // console.log('after auth');
+      // this._onGrow()
 
-        // Change Pink screen to Home Screen
-        setTimeout(() => {
-          // Actions.secondScreen();
-          // Navigate to Main Screen right here.
-          this.props.navigation.navigate('ListTopic');
+      if (!result.message) {
+        dispatch(getUser()).then((result) => {
+          // Work with entire screens
 
-          this.setState({isLoading: false});
-          this.buttonAnimated.setValue(0);
-          this.growAnimated.setValue(0);
-        }, 2300);
+          // Open pink screen.
+          setTimeout(() => {
+            // Alert('this._onGrow');
+            this._onGrow();
+          }, 2000);
 
-        // 
+          // Change Pink screen to Home Screen
+          setTimeout(() => {
+            // Actions.secondScreen();
+            // Navigate to Main Screen right here.
+            this.setState({isLoading: false});
+            this.buttonAnimated.setValue(0);
+            this.growAnimated.setValue(0);
+            this.props.navigation.navigate('MainScreen');
+            
+          }, 2300);
+
+          //
+        });
+      } else {
+        // show Alert
+        // Dont have account
+        if (result.type === 'wrong_account')
+        Alert.alert(
+          "Can't Find Account",
+          this.props.auth.error,
+          [
+            {text: 'CREATE ACCOUNT', onPress: () => {
+              console.log('Ask me later pressed')
+              // Navigate to Sign Up Screen
+            }},
+            {text: 'TRY AGAIN', onPress: () => console.log('Cancel Pressed')}, // style: 'cancel'
+          ],
+          { cancelable: true }
+        )
+        else if (result.type === 'wrong_password')
+        Alert.alert(
+          "Incorrect Password",
+          this.props.auth.error,
+          [
+            {text: 'OK', onPress: () => console.log('Cancel Pressed')}, // style: 'cancel'
+          ],
+          // { cancelable: true }
+        )
+
+        // Wrong password
+
+        this.setState({isLoading: false});
+        this.buttonAnimated.setValue(0);
+        this.growAnimated.setValue(0);
+      }
+
+    })
+      .catch(error => {
+        // create function turn off 
+        this.setState({isLoading: false});
+        this.buttonAnimated.setValue(0);
+        this.growAnimated.setValue(0);
       });
-    });
   }
 
   _onGrow() {
@@ -123,4 +173,4 @@ class LoginButton extends Component {
   }
 }
 
-export default connect()(LoginButton);
+export default connect(mapStateToProps)(LoginButton);

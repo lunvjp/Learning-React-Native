@@ -1,9 +1,11 @@
 import { USER_START_AUTHORIZING, USER_AUTHORIZED,
   LOGIN,
-  GET_AUTH_USER
+  GET_AUTH_USER,
+  LOGOUT
 } from '../actions/actionNames';
 const initializeState = {
   isLoggingIn : false,
+  isSigningOut : false,
   isAuthenticated : false, // after get access Token successfully.
   isPendingUser : false,
   accessToken : null,
@@ -16,7 +18,7 @@ const initializeState = {
   // authorizing : false,
   // authorized : false
 }; // initialize User.
-const user = (state = initializeState, action) => {
+const auth = (state = initializeState, action) => {
   switch(action.type) {
     /* LOGIN */
     case LOGIN.PENDING:
@@ -44,6 +46,8 @@ const user = (state = initializeState, action) => {
         isPendingUser : true
       });
     case GET_AUTH_USER.SUCCESS:
+      console.log('GET_AUTH_USER.SUCCESS')
+      console.log(action.payload)
       return Object.assign({}, state, {
         isPendingUser : false,
         user : action.payload,
@@ -56,20 +60,27 @@ const user = (state = initializeState, action) => {
         error : action.payload
       });
     /* LOGOUT */
+    case LOGOUT.PENDING: 
+      return Object.assign({}, state, {
+        isSigningOut : true
+      });
+    case LOGOUT.SUCCESS: 
+      // return Object.assign({}, initializeState, {
+      //   isSigningOut : false,
+      //   hasInitialUser : false
+      // });
+      return initializeState;
+    case LOGOUT.ERROR: 
+      return Object.assign({}, state, {
+        isSigningOut : false,
+        error : action.payload
+      });
+
+    /* Other actions */
 
 
-
-    // case USER_START_AUTHORIZING:
-    //   return Object.assign({}, state, {
-    //     authorizing : true
-    //   });
-    // case USER_AUTHORIZED:
-    //   return Object.assign({}, state, {
-    //     authorizing : false,
-    //     authorized : true
-    //   });
     default:
       return state;
   }
 };
-export default user;
+export default auth;

@@ -1,5 +1,8 @@
 {
   "expo": {
-    "sdkVersion": "30.0.0"
+    "sdkVersion": "30.0.0",
+    "facebookScheme": "fb845853538918351",
+    "facebookAppId":"845853538918351",
+    "facebookDisplayName": "English Chat App"
   }
 }

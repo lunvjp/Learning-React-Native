@@ -61,20 +61,27 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Font.loadAsync({
-      'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf'),
-      'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
-      'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf')
-    });
+    // Font.loadAsync({
+    //   'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf'),
+    //   'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
+    //   'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf')
+    // });
     this.loadFonts();
   }
 
   async loadFonts () {
     await Expo.Font.loadAsync({
+      /* Custom fonts */
+      'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf'),
+      'Montserrat-SemiBold': require('./assets/fonts/Montserrat-SemiBold.ttf'),
+      'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf'),
+
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
-      'EvilIcons': require('@expo/vector-icons/fonts/EvilIcons.ttf'),
+      
+      'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
+      'Material Design Icons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
     });
     this.setState({isReady : true});
   }

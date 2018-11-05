@@ -1,12 +1,25 @@
 import React from 'react';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-import { Ionicons, MaterialIcons, AntDesign, Entypo, Feather } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, AntDesign, Entypo, Feather,
+  FontAwesome
+} from '@expo/vector-icons';
 
 import ChatScreen from '../screens/ChatScreen';
 import ListTopicScreen from "../screens/ListTopicScreen";
 import QuestionScreen from "../screens/QuestionScreen";
 import AnswerQuestionScreen from "../screens/AnswerQuestionScreen";
 import EditSpeechForTopicScreen from "../screens/EditSpeechForTopicScreen";
+import ProfileScreen from '../screens/ProfileScreen'
+import UserScreen from '../screens/UserScreen'
+
+const ListAndUserStack = createStackNavigator({
+  QuestionScreen : {
+    screen : QuestionScreen,
+  },
+  AnswerQuestionScreen : {
+    screen : AnswerQuestionScreen
+  }
+});
 
 const ListTopicNavigator = createStackNavigator({
   ListTopicScreen : {
@@ -29,6 +42,12 @@ const BottomNavigation = createBottomTabNavigator({
   },
   Chat : {
     screen : ChatScreen
+  },
+  // Profile : {
+  //   screen : ProfileScreen
+  // },
+  User : {
+    screen : UserScreen
   }
 }, {
   navigationOptions: ({ navigation }) => ({
@@ -45,6 +64,9 @@ const BottomNavigation = createBottomTabNavigator({
         iconName = 'message';
         // iconName = `ios-options${focused ? '' : '-outline'}`;
         return <Entypo name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+      } else if (routeName === 'User') {
+        iconName = `user-circle${focused ? '' : '-o'}`;
+        return <FontAwesome name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
       }
 
       // You can return any component that you like here! We usually use an
