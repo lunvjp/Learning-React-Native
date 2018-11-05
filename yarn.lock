@@ -5929,6 +5929,11 @@ react-native-gifted-spinner@^0.1.0:
   resolved "https://registry.yarnpkg.com/react-native-gifted-spinner/-/react-native-gifted-spinner-0.1.0.tgz#2c76094fa0469c59e96dead270cd5bca5a55962a"
   integrity sha1-LHYJT6BGnFnpberScM1bylpVlio=
 
+react-native-gradient-buttons@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/react-native-gradient-buttons/-/react-native-gradient-buttons-1.2.9.tgz#ea3bb97220bcbfb99a2d2e6c5cee0134d7a709db"
+  integrity sha512-GX5ngmR/ddxISkTnMln1fwMUyylnNFQ2R3p8WrnxCYAlvOKbu/OR9imkS8wiwei3ZoGnPxlbenGj6Ff3zEXYgA==
+
 react-native-infinite-virtualized-list@^0.1.14:
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/react-native-infinite-virtualized-list/-/react-native-infinite-virtualized-list-0.1.14.tgz#275d25483aa681a4f925d199108c3cf4aea03d85"
@@ -6655,13 +6660,6 @@ sax@~1.1.1:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.1.6.tgz#5d616be8a5e607d54e114afae55b7eaf2fcc3240"
   integrity sha1-XWFr6KXmB9VOEUr65Vt+ry/MMkA=
-
-schedule@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/schedule/-/schedule-0.4.0.tgz#fa20cfd0bfbf91c47d02272fd7096780d3170bbb"
-  integrity sha512-hYjmoaEMojiMkWCxKr6ue+LYcZ29u29+AamWYmzwT2VOO9ws5UJp/wNhsVUPiUeNh+EdRfZm7nDeB40ffTfMhA==
-  dependencies:
-    object-assign "^4.1.1"
 
 schedule@^0.5.0:
   version "0.5.0"
