@@ -486,7 +486,7 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@expo/react-native-action-sheet@^1.0.1":
+"@expo/react-native-action-sheet@^1.0.1", "@expo/react-native-action-sheet@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@expo/react-native-action-sheet/-/react-native-action-sheet-1.1.2.tgz#4c2f9b8190678799552e83134a975ec370a694d9"
   integrity sha512-//2EvHVBFVGSAzuJvG0I1UoQVzGJBo2f1CkO+RMnEWdR0FeWYmV7+pCThIroL1czRm/oOtoMxiGS6FgXt6QgVA==
@@ -501,6 +501,14 @@
   dependencies:
     lodash "^4.17.4"
     react-native-vector-icons "4.5.0"
+
+"@expo/vector-icons@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@expo/vector-icons/-/vector-icons-8.0.0.tgz#29c91778aee02b92b045914bbed8eec299a84e5e"
+  integrity sha512-DyVGGguxCsT0aMQrWAbS40AmlK648TehEEFkcibLwYjle7kUNh7clgQwRnCxnmjHn8VltbXpNrJNor9BVIHMLQ==
+  dependencies:
+    lodash "^4.17.4"
+    react-native-vector-icons "6.0.0"
 
 "@expo/websql@^1.0.1":
   version "1.0.1"
@@ -4711,7 +4719,7 @@ md5-file@^3.2.3:
   dependencies:
     buffer-alloc "^1.1.0"
 
-md5@2.2.1:
+md5@2.2.1, md5@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/md5/-/md5-2.2.1.tgz#53ab38d5fe3c8891ba465329ea23fac0540126f9"
   integrity sha1-U6s41f48iJG6RlMp6iP6wFQBJvk=
@@ -5692,6 +5700,14 @@ promise@^7.1.1:
   dependencies:
     asap "~2.0.3"
 
+prop-types@15.5.10:
+  version "15.5.10"
+  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
+  integrity sha1-J5ffwxJhguOpXj37suiT3ddFYVQ=
+  dependencies:
+    fbjs "^0.8.9"
+    loose-envify "^1.3.1"
+
 prop-types@15.6.1:
   version "15.6.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.1.tgz#36644453564255ddda391191fb3a125cbdf654ca"
@@ -5829,6 +5845,13 @@ react-native-branch@2.2.5:
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-2.2.5.tgz#4074dd63b4973e6397d9ce50e97b57c77a518e9d"
   integrity sha1-QHTdY7SXPmOX2c5Q6XtXx3pRjp0=
 
+react-native-collapsible@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-collapsible/-/react-native-collapsible-1.3.0.tgz#5eabe4d529730582e72c5cefd2476bb55e81ce05"
+  integrity sha512-v5Hwwp4kmwbBOyrs5vpGTac5NwVV1dgN4MmpRF9bbAgEPCpSjQ2ZhaRMi8ZVBUfeZ+kT3rbxSo0qKFhtqYnd7w==
+  dependencies:
+    prop-types "^15.6.2"
+
 react-native-communications@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-native-communications/-/react-native-communications-2.2.1.tgz#7883b56b20a002eeb790c113f8616ea8692ca795"
@@ -5860,6 +5883,13 @@ react-native-drawer@2.5.0:
   dependencies:
     prop-types "^15.5.8"
     tween-functions "^1.0.1"
+
+react-native-dropdownalert@^3.7.0:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/react-native-dropdownalert/-/react-native-dropdownalert-3.7.1.tgz#055928bc688c47b80a33043b79567be3b1327856"
+  integrity sha512-pdq3EO2bwUAd/jKhesav+Vy5teknD2F3DDUCNOPp5JWOiSc0OV66TjKpgu0mQp6Pr9zokkhEhhRQbRx0D/bZMQ==
+  dependencies:
+    prop-types "15.5.10"
 
 react-native-easy-grid@0.2.0:
   version "0.2.0"
@@ -5928,6 +5958,11 @@ react-native-gifted-spinner@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/react-native-gifted-spinner/-/react-native-gifted-spinner-0.1.0.tgz#2c76094fa0469c59e96dead270cd5bca5a55962a"
   integrity sha1-LHYJT6BGnFnpberScM1bylpVlio=
+
+react-native-gradient-buttons@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/react-native-gradient-buttons/-/react-native-gradient-buttons-1.2.9.tgz#ea3bb97220bcbfb99a2d2e6c5cee0134d7a709db"
+  integrity sha512-GX5ngmR/ddxISkTnMln1fwMUyylnNFQ2R3p8WrnxCYAlvOKbu/OR9imkS8wiwei3ZoGnPxlbenGj6Ff3zEXYgA==
 
 react-native-infinite-virtualized-list@^0.1.14:
   version "0.1.14"
@@ -6104,6 +6139,15 @@ react-native-vector-icons@4.6.0:
   dependencies:
     lodash "^4.0.0"
     prop-types "^15.5.10"
+    yargs "^8.0.2"
+
+react-native-vector-icons@6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-vector-icons/-/react-native-vector-icons-6.0.0.tgz#3a7076dbe244ea94c6d5e92802a870e64a4283c5"
+  integrity sha512-uF3oWb3TV42uXi2apVOZHw9oy9Nr5SXDVwOo1umQWo/yYCrDzXyVfq14DzezgEbJ9jfc/yghBelj0agkXmOKlg==
+  dependencies:
+    lodash "^4.0.0"
+    prop-types "^15.6.2"
     yargs "^8.0.2"
 
 "react-native@https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz":
