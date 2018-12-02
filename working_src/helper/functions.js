@@ -11,7 +11,7 @@ const DATA_API = 'https://connectenglishlearner.000webhostapp.com/wp-json/wp/v2'
  */
 export const getQuestionByTopicAsync = (slug, page) => {
   if (!slug)
-    slug = 'travelling';
+    slug = 'travel';
   if (!page)
     page = 1;
   // let queryQuestions = queryString.stringify({

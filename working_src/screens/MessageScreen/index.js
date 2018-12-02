@@ -4,6 +4,7 @@ import { View, StyleSheet, Linking, Platform } from 'react-native';
 
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { GiftedChat } from 'react-native-gifted-chat';
+import { connect } from 'react-redux'
 
 import firebase from '../../config/firebase';
 import messagesData from '../../config/data';
@@ -26,6 +27,7 @@ class MessageScreen extends Component {
       messages: [],
       step: 0,
       appIsReady: false,
+      customText : ''
     };
 
     this.onSend = this.onSend.bind(this);
@@ -84,6 +86,12 @@ class MessageScreen extends Component {
       },
     ];
   }
+
+  setCustomText = (text) => {
+    if (!text) this.setState({
+      customText : 'jack'
+    });
+  }
   render() {
     if (!this.state.appIsReady) {
       return <AppLoading />;
@@ -107,5 +115,6 @@ class MessageScreen extends Component {
   }
 
 }
+
 
 export default MessageScreen;

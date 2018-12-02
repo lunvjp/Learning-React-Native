@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { AppState, View, Image, FlatList } from 'react-native'
 import PurpleGradient from '../../components/PurpleGradient'
 import uuid from 'uuidv4';
+
+import { connect } from 'react-redux'
+import {getTopics} from "../../actions/topic";
 // import DayToggle from '../../components/DayToggle'
 import Talk from '../../components/Talk'
 
@@ -11,24 +14,6 @@ import styles from './styles';
 // const addSpecials = (specialTalksList, talks) =>
 //   map((talk) => assoc('special', contains(talk.title, specialTalksList), talk), talks)
 // =================================================
-
-const data = [
-  {
-    title : 'Travelling' 
-  },
-  {
-    title : 'Friends'
-  },
-  {
-    title : 'Hometown'
-  },
-  {
-    title : 'Shopping'
-  },
-  {
-    title : 'Future'
-  }
-];
 
 // ScheduleScreen
 class ListTopicScreen extends Component {
@@ -40,24 +25,16 @@ class ListTopicScreen extends Component {
   // }
 
   componentDidMount() {
-    // console.log(uuid());
-    // console.log(typeof uuid());
+    const { navigation, dispatch } = this.props;
+    dispatch(getTopics()).then();
   }
 
   onEventPress = (item) => {
-    // console.log('Click TOPIC');
-    // console.log(item);
-    // return;
-
     const { navigation } = this.props;
-    // console.log(navigation);
-    navigation.navigate('QuestionScreen');
-    // navigation.navigate(''); // Import some screens right here.
-    // console.log();
+    navigation.navigate('QuestionScreen', item);
   }
-  
+
   renderItem = ({item}) => {
-    console.log(item);
     return (
       <Talk
         // name={item.name}
@@ -79,7 +56,7 @@ class ListTopicScreen extends Component {
         {/* {isCurrentDay && <View style={styles.timeline} />} */}
         <FlatList
           ref='scheduleList'
-          data={data}
+          data={this.props.topics}
           extraData={this.props}
           renderItem={this.renderItem}
           // keyExtractor={(item, idx) => item.eventStart}
@@ -93,4 +70,6 @@ class ListTopicScreen extends Component {
   }
 }
 
-export default ListTopicScreen;
+const mapStateToProps = state => state.question;
+
+export default connect(mapStateToProps)(ListTopicScreen);

@@ -16,7 +16,12 @@ import {
 } from 'react-native';
 import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
+import GradientButton from 'react-native-gradient-buttons'
+import { FontAwesome } from '@expo/vector-icons'
+import Expo from 'expo'
+import firebase from 'firebase'
 
+import {keys} from '../../config'
 import styles from './styles';
 import spinner from '../../assets/images/loading.gif';
 
@@ -86,7 +91,7 @@ class LoginButton extends Component {
             this.buttonAnimated.setValue(0);
             this.growAnimated.setValue(0);
             this.props.navigation.navigate('MainScreen');
-            
+
           }, 2300);
 
           //
@@ -126,7 +131,7 @@ class LoginButton extends Component {
 
     })
       .catch(error => {
-        // create function turn off 
+        // create function turn off
         this.setState({isLoading: false});
         this.buttonAnimated.setValue(0);
         this.growAnimated.setValue(0);
@@ -139,6 +144,64 @@ class LoginButton extends Component {
       duration: 200,
       easing: Easing.linear,
     }).start();
+  }
+
+  onLoginFacebook = async () => {
+    try {
+      const {
+        type,
+        token,
+        expires,
+        permissions,
+        declinedPermissions,
+      } = await Expo.Facebook.logInWithReadPermissionsAsync(keys.FACEBOOK_APP_ID, {
+        permissions: ['public_profile', 'email'],
+      });
+      if (type === 'success') {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        const result = response.json();
+        console.log(result)
+        // TODO: loginFacebook action
+        // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
+      } else {
+        // type === 'cancel'
+        console.log(type)
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
+  }
+
+  onLoginGoogle = async () => {
+    // TODO: Test with phone number login.
+    // firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
+    //   .then(function (confirmationResult) {
+    //     // SMS sent. Prompt user to type the code from the message, then sign the
+    //     // user in with confirmationResult.confirm(code).
+    //     window.confirmationResult = confirmationResult;
+    //   }).catch(function (error) {
+    //   // Error; SMS not sent
+    //   // ...
+    // });
+    try {
+      const result = await Expo.Google.logInAsync({
+        androidClientId: keys.GOOGLE_ANDROID_CLIENT_ID,
+        iosClientId: keys.GOOGLE_IOS_CLIENT_ID,
+        scopes: ['profile', 'email'],
+      });
+
+      if (result.type === 'success') {
+        // return result.accessToken;
+        // TODO: loginGoogle action.
+        console.log(result)
+      } else {
+        // return {cancelled: true};
+        console.log(result)
+      }
+    } catch(e) {
+      // return {error: true};
+    }
   }
 
   render() {
@@ -168,6 +231,40 @@ class LoginButton extends Component {
             style={[styles.circle, {transform: [{scale: changeScale}]}]}
           />
         </Animated.View>
+
+
+        <GradientButton
+          onPressAction={this.onLoginFacebook}
+          style={styles.socialButton}
+          textStyle={{ fontSize: 20 }}
+          height={50}
+          gradientBegin="#3b5998"
+          gradientEnd="#1B2946"
+          impact
+        >
+          <FontAwesome
+            name="facebook"
+            style={{ color: "white", fontSize: 18 }}
+          />{" "}
+          Sign-In with Facebook
+        </GradientButton>
+
+        <GradientButton
+          onPressAction={this.onLoginGoogle}
+          style={styles.socialButton}
+          textStyle={{ fontSize: 20 }}
+          height={50}
+          gradientBegin="#DB4437"
+          gradientEnd="#641F19"
+          impact
+        >
+          <FontAwesome
+            name="google"
+            style={{ color: "white", fontSize: 18 }}
+          />{" "}
+          Sign-In with Google
+        </GradientButton>
+
       </View>
     );
   }

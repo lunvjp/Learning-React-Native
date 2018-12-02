@@ -3,7 +3,7 @@ import { Dimensions, Image, View, Text, StyleSheet } from 'react-native'
 import { Avatar } from 'react-native-elements'
 import PropTypes from 'prop-types'
 
-import { datetime } from '../../utils'
+import { timeDifferenceForDate } from '../../utils'
 
 const styles = StyleSheet.create({
   container: {
@@ -63,7 +63,7 @@ const Post = ({ containerStyle, user, image, createdDate, sentences }) => (
       <View>
         <Text>{user.name}</Text>
         <Text style={styles.date}>
-          {datetime.timeDifferenceForDate(createdDate)}
+          {timeDifferenceForDate(createdDate)}
         </Text>
       </View>
     </View>

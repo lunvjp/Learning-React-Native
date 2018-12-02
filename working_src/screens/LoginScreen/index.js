@@ -8,9 +8,7 @@ import Wallpaper from './Wallpaper';
 import ButtonSubmit from './ButtonSubmit';
 import SignupSection from './SignupSection';
 
-import Alert from './Alert'
 import LoginButton from '../../containers/LoginButton';
-import LoginFacebookButton from '../../containers/LoginFacebookButton';
 
 class LoginScreen extends Component {
   state = {
@@ -44,12 +42,12 @@ class LoginScreen extends Component {
         <Form
           onChangeEmail={this.onChangeEmail}
           onChangePassword={this.onChangePassword}/>
-        
+
         <LoginButton
           {...this.props}
           email={this.state.email}
           password={this.state.password} />
-        <LoginFacebookButton/>
+        {/* <LoginFacebookButton/> */}
         <SignupSection />
         {/*<ButtonSubmit />*/}
       </Wallpaper>

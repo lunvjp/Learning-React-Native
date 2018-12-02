@@ -1,4 +1,4 @@
-export default {
+export const messages = {
   LOGIN : {
     USER_FAIL : 'Incorrect password. Try again.',
     NETWORK_FAIL : {

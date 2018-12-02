@@ -1,13 +1,14 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, Dimensions} from "react-native";
 
 const MARGIN = 40;
+const DEVICE_WIDTH = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // top: -95,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'flex-start'
   },
   button: {
     alignItems: 'center',
@@ -16,6 +17,10 @@ const styles = StyleSheet.create({
     height: MARGIN,
     borderRadius: 20,
     zIndex: 100,
+  },
+  socialButton : {
+    marginTop: 8,
+    width : DEVICE_WIDTH - 40
   },
   circle: {
     height: MARGIN,

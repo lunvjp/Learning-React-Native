@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, TouchableHighlight } from 'react-native';
+import DropdownAlert from 'react-native-dropdownalert';
+import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
+
+import _ from 'lodash';
+
+import { connect } from 'react-redux';
+import {sendParagraph, getParagraph, updateParagraph} from "../../actions/paragraph";
+import { DropDownHolder } from '../../config'
 import { Button } from 'native-base';
 import { Feather } from '@expo/vector-icons';
 
 class EditSpeechForTopicScreen extends Component {
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title : 'Create Writing',
     // headerTitle:
     //   <Body>
@@ -17,25 +25,65 @@ class EditSpeechForTopicScreen extends Component {
         style={{
           marginRight : 15
         }}
-        onPress={this._onPressButton}
-        >
+        onPress={navigation.state.params._onPressButton}
+      >
         <Text style={{
           fontSize : 15
         }}>Submit</Text>
       </TouchableHighlight>
     )
-  };
+  });
 
   state = {
-    text : 'Two methods exposed via the native element are .focus() and .blur() that will focus or blur the TextInput programmatically.'
+    text : '',
+    paragraph : null
   }
 
   _onPressButton = () => {
-    /* Submit */
-    // const { navigation } = this.props;
-    // this.props.navigation.goBack();
-    // Come back
-    // console.log();
+    const topic_id = this.props.navigation.getParam('topic_id');
+    const { dispatch } = this.props;
+    // console.log('topic_id inside EditSpeechForTopicScreen')
+    // console.log( topic_id )
+    if (this.state.paragraph) {
+      dispatch(updateParagraph(this.state.paragraph.id, this.state.text))
+        .then(() => {
+          DropDownHolder.getDropDown().alertWithType('success', 'Success', 'Update Successfully!');
+        });
+    } else {
+      dispatch(sendParagraph(this.state.text, topic_id)).then(result => {
+        DropDownHolder.getDropDown().alertWithType('success', 'Success', 'Create Successfully!');
+        this.setState({
+          paragraph : result
+        });
+      });
+    }
+  }
+
+  componentDidMount () {
+    console.log('topic_id inside EditSpeechForTopicScreen')
+    console.log( this.props.navigation.getParam('topic_id') )
+    // set function for Submit button
+    this.props.navigation.setParams({
+      _onPressButton : this._onPressButton
+    });
+
+    /** fetch Paragraphs */
+    const topic_id = this.props.navigation.getParam('topic_id');
+    this.props.dispatch(getParagraph(topic_id))
+      .then(result => {
+        // console.log( topic_id )
+        // console.log( result )
+        if ( !_.isEmpty(result) ) {
+          const text = result.text;
+          this.setState({
+            text,
+            paragraph : result
+          });
+        }
+      })
+      .catch((error) => {
+        console.log( error )
+      });
   }
 
   render() {
@@ -46,8 +94,8 @@ class EditSpeechForTopicScreen extends Component {
       }}>
         <TextInput
           style={{
-            padding : 20,
-            paddingTop : 20,
+            padding : 15,
+            paddingTop : 15,
             fontSize : 20
           }}
           multiline={true}
@@ -56,9 +104,12 @@ class EditSpeechForTopicScreen extends Component {
           value={this.state.text}
           placeholder='Write your writing'
         />
+
       </View>
     );
   }
 }
 
-export default EditSpeechForTopicScreen;
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(EditSpeechForTopicScreen);

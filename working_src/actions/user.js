@@ -1,16 +1,11 @@
-/** TODO:
- * 1. save global endpoint
- */
 import {AsyncStorage} from 'react-native';
 import {
-  USER_START_AUTHORIZING, USER_AUTHORIZED,
   // SEND_MESSAGE, ADD_MESSAGE, START_FETCHING_MESSAGES
   LOGIN,
   GET_AUTH_USER,
   LOGOUT
 } from './actionNames';
-import {LOGIN_URL, USER_URL} from '../config/urls';
-import messages from '../config/messages'
+import {messages, urls} from '../config'
 
 export const loginDefault = (email, password) => {
   return (dispatch) => {
@@ -83,7 +78,7 @@ export const getUser = () => {
 
 
 export const fetchAuthUser = async accessToken => {
-  const response = await fetch(USER_URL, {
+  const response = await fetch(urls.USER.GET, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -96,7 +91,7 @@ export const fetchAuthUser = async accessToken => {
 
 // fetch access token
 export const fetchAccessToken = async (email, password) => {
-  const response = await fetch(LOGIN_URL, {
+  const response = await fetch(urls.USER.LOGIN, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

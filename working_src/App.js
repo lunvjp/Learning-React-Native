@@ -6,6 +6,7 @@ import {
   View
 } from 'react-native';
 import Expo, { Font } from 'expo';
+import DropdownAlert from "react-native-dropdownalert";
 
 // ====================================================
 // import LoginUI from './components/LoginUI';
@@ -40,9 +41,11 @@ import Root from './navigation/Root';
 //   }
 // });
 // ====================================================
+import {DropDownHolder} from './config'
 import { AppNavigator,
   middleware
 } from './containers/AppNavigator';
+
 
 const loggerMiddleware = createLogger();
 const store = createStore(
@@ -50,8 +53,22 @@ const store = createStore(
   applyMiddleware(
     middleware,
     thunkMiddleware,
-    loggerMiddleware
+    // loggerMiddleware
   )
+);
+
+const RootApp = () => (
+  <View style={{
+    flex : 1
+  }}>
+    <AppNavigator />
+    <DropdownAlert ref={ref => {
+      DropDownHolder.setDropDown(ref)
+    }}
+                   closeInterval={1000}
+
+    />
+  </View>
 );
 
 class App extends Component {
@@ -79,7 +96,7 @@ class App extends Component {
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
       'Ionicons': require('@expo/vector-icons/fonts/Ionicons.ttf'),
-      
+
       'Material Icons': require('@expo/vector-icons/fonts/MaterialIcons.ttf'),
       'Material Design Icons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
     });
@@ -93,8 +110,7 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <AppNavigator />
-        {/*<Root />*/}
+        <RootApp />
       </Provider>
     );
   }
