@@ -3,6 +3,8 @@ import {createActionSet} from "../../utils";
 export const ADD_NEW_WORD = createActionSet('ADD_NEW_WORD');
 export const GET_WORDS = createActionSet('GET_WORDS');
 export const REMOVE_WORD_FROM_LIST = createActionSet('REMOVE_WORD_FROM_LIST');
+export const UPDATE_INDEX = createActionSet('UPDATE_INDEX');
+// Update all actions code inside Reducers folders.
 // Not update anymore.
 
 /**

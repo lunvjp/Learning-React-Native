@@ -5,7 +5,7 @@ import {
 } from '../actions/questions/type'
 // SUBMIT_ANSWER_TO_QUESTION
 import {SUBMIT_PARAGRAPH, UPDATE_PARAGRAPH} from "../actions/paragraph/type";
-import {GET_TOPICS} from "../actions/topic/type";
+import {GET_TOPICS, SET_CURRENT_TOPIC} from "../actions/topic/type";
 /*
 answer : [
  1 : 'answer of question_id = 1'
@@ -27,7 +27,8 @@ const initializeState = {
   error : '',
   questions : {},
   answer : [], // still dont know should we use it or not.
-  topics : []
+  topics : [],
+  topic : {}
 }; // initialize Question
 
 const question = (state = initializeState, action) => {
@@ -141,6 +142,14 @@ const question = (state = initializeState, action) => {
         isUpdatingParagraph : false,
         error : action.payload
       });
+
+    /** ------------------------------------- */
+    // Work with Topic.
+    case SET_CURRENT_TOPIC:
+      return Object.assign({}, state, {
+        topic : action.payload
+      });
+
 
     default :
       return state;

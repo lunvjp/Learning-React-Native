@@ -1,4 +1,4 @@
-import {GET_TOPICS} from './type'
+import {GET_TOPICS, SET_CURRENT_TOPIC} from './type'
 import {urls} from "../../config";
 
 
@@ -25,5 +25,12 @@ export const getTopics = () => {
           payload : error
         })
       })
+  }
+}
+
+export const setCurrentTopic = (topic) => {
+  return {
+    type : SET_CURRENT_TOPIC,
+    payload : topic
   }
 }

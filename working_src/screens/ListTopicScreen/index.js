@@ -4,7 +4,7 @@ import PurpleGradient from '../../components/PurpleGradient'
 import uuid from 'uuidv4';
 
 import { connect } from 'react-redux'
-import {getTopics} from "../../actions/topic";
+import {getTopics, setCurrentTopic} from "../../actions/topic";
 // import DayToggle from '../../components/DayToggle'
 import Talk from '../../components/Talk'
 
@@ -14,23 +14,22 @@ import styles from './styles';
 // const addSpecials = (specialTalksList, talks) =>
 //   map((talk) => assoc('special', contains(talk.title, specialTalksList), talk), talks)
 // =================================================
-
-// ScheduleScreen
 class ListTopicScreen extends Component {
 
-  // constructor(props) {
-  //   super(props);
-
-  //   const data = addSpecials(specialTalks, eventsByDay[activeDay])
-  // }
-
   componentDidMount() {
-    const { navigation, dispatch } = this.props;
+    this.fetchTopics();
+  }
+
+  fetchTopics = () => {
+    const { dispatch } = this.props;
     dispatch(getTopics()).then();
   }
 
   onEventPress = (item) => {
-    const { navigation } = this.props;
+    const { navigation, dispatch } = this.props;
+    /** set Redux variable for this topic */
+    dispatch(setCurrentTopic(item));
+
     navigation.navigate('QuestionScreen', item);
   }
 

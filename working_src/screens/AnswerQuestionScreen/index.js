@@ -19,6 +19,7 @@ import { connect } from 'react-redux'
 
 import ListAnswers from './ListAnswers';
 import styles from './styles';
+import NewWordsList from "../../containers/NewWordsList";
 
 class AnswerQuestionScreen extends Component {
 
@@ -82,8 +83,6 @@ class AnswerQuestionScreen extends Component {
   }
 
   _onPressOpenNewWordScreenButton = () => {
-    console.log('jack check inside _onPressOpenNewWordScreenButton of AnswerQuestionScreen')
-    console.log(this.state.topic_id)
     this.props.navigation.navigate('NewWordScreen', {
       topic_id : this.state.topic_id
     });
@@ -119,6 +118,7 @@ class AnswerQuestionScreen extends Component {
           padding : 10,
           backgroundColor : '#fff'
         }]}>{title}</Text>
+        {/*<NewWordsList/>*/}
         <ListAnswers {...this.props} />
       </View>
     );

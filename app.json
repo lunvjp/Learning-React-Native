@@ -1,8 +1,15 @@
 {
   "expo": {
+    "name": "ChatEnglishApp",
     "sdkVersion": "30.0.0",
     "facebookScheme": "fb845853538918351",
     "facebookAppId":"845853538918351",
-    "facebookDisplayName": "English Chat App"
+    "facebookDisplayName": "English Chat App",
+    "ios": {
+      "bundleIdentifier": "com.chatenglishapp"
+    },
+    "android": {
+      "package": "com.chatenglishapp"
+    }
   }
 }

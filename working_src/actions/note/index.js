@@ -57,8 +57,7 @@ export const addNewWord = (name, topic_id, current_topic_id) => {
 
 // COME BACK LATER.
 export const fetchWords = async (topic_id, user_id) => {
-  const response = await fetch(urls.NOTE.GET(topic_id, user_id));
-  // console.log( urls.NOTE.GET(topic_id, user_id) )
+  const response = await fetch(urls.NOTE.GET_BY_TOPIC(topic_id, user_id));
   return response.json();
 }
 // GET_WORDS
@@ -90,11 +89,11 @@ export const getWords = (topic_id) => {
 }
 
 /** Remove word from Note */
-  // word_id, user_id, topic_id
+  // word_id, user_id, topic_id, current_index
 export const deleteWord = async (word_id, user_id, topic_id) => {
   // http://localhost/englishchatapp/api/note
   // urls.NOTE.DELETE
-  const response = await fetch('http://localhost/englishchatapp/api/note', {
+  const response = await fetch(urls.NOTE.DELETE, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json'
@@ -102,7 +101,9 @@ export const deleteWord = async (word_id, user_id, topic_id) => {
     body: JSON.stringify({
       word_id: word_id,
       user_id: user_id,
-      topic_id: topic_id
+      topic_id: topic_id,
+      // current_index
+
     })
   });
   return response.json();
@@ -122,5 +123,37 @@ export const removeWordFromNote = (word_id, topic_id) => {
           reject(error);
         });
     });
+  }
+}
+
+/** Update index of all New words */
+export const fetchNewIndex = async (user_id, topic_id, word_ids) => {
+  const response = await fetch(urls.NOTE.UPDATE_INDEX, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      user_id : user_id,
+      topic_id : topic_id,
+      word_ids : word_ids
+    })
+  });
+  return response.json();
+}
+
+// TODO:
+// Update Redux store for all actions right here.
+export const updateIndexTopic = (topic_id, word_ids) => {
+  return (dispatch, getState) => {
+    const {id} = getState().auth.user;
+    return fetchNewIndex(id, topic_id, word_ids)
+      .then((result) => {
+        console.log('CHECK RESULT FROM UPDATE INDEXES')
+        console.log(result)
+      })
+      .catch((error) => {
+        console.log( error )
+      });
   }
 }

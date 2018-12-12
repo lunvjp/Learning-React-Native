@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, InputToolbar} from 'react-native-gifted-chat';
 import emojiUtils from 'emoji-utils';
 
 import SlackMessage from './SlackMessage';
@@ -10,6 +10,7 @@ import {getQuestion, getQuestions, sendMessage, updateMessage} from '../../actio
 import {getAnswerFromQuestion} from "../../actions/questions";
 import question from "../../reducers/question";
 import {prepareMessages, editMessages} from "../../utils";
+import NewWordsList from "../../containers/NewWordsList";
 
 class ListAnswers extends Component {
   state = {
@@ -137,6 +138,15 @@ class ListAnswers extends Component {
     );
   }
 
+  renderInputToolbar = () => {
+    return (
+      <View>
+        {/*<NewWordsList/>*/}
+        <InputToolbar/>
+      </View>
+    );
+  }
+
   render() {
     const answer = this.props.navigation.getParam('answer', '');
     const textInput = (answer && answer.answer_text) ? answer.answer_text : '';
@@ -158,6 +168,7 @@ class ListAnswers extends Component {
         showUserAvatar={true}
         text={this.state.textInput || textInput}
         onInputTextChanged={(textInput) => this.setState({textInput})}
+        // renderInputToolbar={this.renderInputToolbar}
         // placeholder={this.props.navigation.getParam('answer', '').answer_text}
       />
     );
