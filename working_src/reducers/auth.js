@@ -41,13 +41,11 @@ const auth = (state = initializeState, action) => {
     /* REGISTER */
 
     /* GET_AUTH_USER */
-    case GET_AUTH_USER.PENDING: 
+    case GET_AUTH_USER.PENDING:
       return Object.assign({}, state, {
         isPendingUser : true
       });
     case GET_AUTH_USER.SUCCESS:
-      console.log('GET_AUTH_USER.SUCCESS')
-      console.log(action.payload)
       return Object.assign({}, state, {
         isPendingUser : false,
         user : action.payload,
@@ -60,17 +58,17 @@ const auth = (state = initializeState, action) => {
         error : action.payload
       });
     /* LOGOUT */
-    case LOGOUT.PENDING: 
+    case LOGOUT.PENDING:
       return Object.assign({}, state, {
         isSigningOut : true
       });
-    case LOGOUT.SUCCESS: 
+    case LOGOUT.SUCCESS:
       // return Object.assign({}, initializeState, {
       //   isSigningOut : false,
       //   hasInitialUser : false
       // });
       return initializeState;
-    case LOGOUT.ERROR: 
+    case LOGOUT.ERROR:
       return Object.assign({}, state, {
         isSigningOut : false,
         error : action.payload

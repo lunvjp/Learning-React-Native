@@ -57,16 +57,17 @@ class Contact extends Component {
       // avatar,
       avatarBackground,
       // name,
-      address: { city, country }, 
+      address: { city, country },
     } = this.props
     // console.log('renderHeader')
     // console.log(this.props);
     const { name } = this.props.user;
     console.log('jack check name')
     console.log(name)
-    const avatar = 'https://preview.ibb.co/ndTqXf/Jack-avatar.jpg';
+    // const avatar = 'https://preview.ibb.co/ndTqXf/Jack-avatar.jpg';
+    const avatar = '';
     // const avatar = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
-    
+
     return (
       <View style={styles.headerContainer}>
         <ImageBackground

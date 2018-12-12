@@ -18,13 +18,13 @@ class Settings extends Component {
           this.props.dispatch(signOut()).then(() => {
             this.props.navigation.navigate('AuthLoadingScreen');
           })
-          
+
         }
       },
     ]
   }
   renderItem = ({ item }) => {
-    console.log(item)
+    // console.log(item)
     // return <UserItem item={item} />;
     return <ListItem
             // roundAvatar

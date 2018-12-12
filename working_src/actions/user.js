@@ -1,16 +1,105 @@
-/** TODO:
- * 1. save global endpoint
- */
 import {AsyncStorage} from 'react-native';
 import {
-  USER_START_AUTHORIZING, USER_AUTHORIZED,
   // SEND_MESSAGE, ADD_MESSAGE, START_FETCHING_MESSAGES
   LOGIN,
   GET_AUTH_USER,
   LOGOUT
 } from './actionNames';
-import {LOGIN_URL, USER_URL} from '../config/urls';
-import messages from '../config/messages'
+import axios from 'axios';
+import {messages, urls} from '../config'
+
+/**
+ * Login Facebook
+ */
+export const fetchUserFacebook = async (res) => {
+  const response = await fetch(urls.USER.LOGIN_FACEBOOK, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(res),
+  });
+  // console.log('jack check login Facebook')
+  // console.log(response.json())
+  return response.json();
+}
+
+export const loginFacebook = (res) => {
+  return (dispatch) => {
+    dispatch({
+      type : LOGIN.PENDING
+    })
+    return new Promise((resolve, reject) => {
+      fetchUserFacebook(res)
+        .then((result) => {
+          // console.log(result)
+          dispatch({
+            type: LOGIN.SUCCESS,
+            // payload: result // user
+            // update user global User
+          });
+          dispatch({
+            type: GET_AUTH_USER.SUCCESS,
+            payload: result
+          });
+          // console.log( result )
+          resolve(result)
+        })
+        .catch((error) => {
+          dispatch({
+            type: LOGIN.ERROR,
+            payload: error
+          });
+          console.log( error )
+          reject(error)
+        });
+    });
+  }
+}
+
+/**
+ * Login Google
+ */
+export const fetchUserGoogle = async (res) => {
+  const response = await fetch(urls.USER.LOGIN_GOOGLE, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(res),
+  });
+  return response.json();
+}
+
+export const loginGoogle = (res) => {
+  return (dispatch) => {
+    dispatch({
+      type : LOGIN.PENDING
+    })
+    return new Promise((resolve, reject) => {
+      fetchUserGoogle(res)
+        .then((result) => {
+          dispatch({
+            type: LOGIN.SUCCESS
+          });
+          dispatch({
+            type: GET_AUTH_USER.SUCCESS,
+            payload: result // UPDATE: result.user
+          });
+          // await AsyncStorage.setItem('accessToken', result.access_token);
+          resolve(result)
+        })
+        .catch((error) => {
+          dispatch({
+            type: LOGIN.ERROR,
+            payload: error
+          });
+          console.log( error )
+          reject(error)
+        });
+    });
+  }
+}
 
 export const loginDefault = (email, password) => {
   return (dispatch) => {
@@ -21,6 +110,7 @@ export const loginDefault = (email, password) => {
       fetchAccessToken(email, password)
         .then(async (result) => {
           // Check error with Login Fail
+          console.log(result)
           if (result.message) {
             dispatch({
               type: LOGIN.ERROR,
@@ -83,7 +173,7 @@ export const getUser = () => {
 
 
 export const fetchAuthUser = async accessToken => {
-  const response = await fetch(USER_URL, {
+  const response = await fetch(urls.USER.GET, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -96,7 +186,21 @@ export const fetchAuthUser = async accessToken => {
 
 // fetch access token
 export const fetchAccessToken = async (email, password) => {
-  const response = await fetch(LOGIN_URL, {
+  // GET request for remote image
+  axios({
+    method:'post',
+    url:urls.USER.LOGIN,
+    data: {
+      firstName: 'Fred',
+      lastName: 'Flintstone'
+    }
+    // responseType:'stream'
+  })
+    .then(function (response) {
+      response.data.pipe(fs.createWriteStream('ada_lovelace.jpg'))
+    });
+
+  const response = await fetch(urls.USER.LOGIN, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -106,7 +210,6 @@ export const fetchAccessToken = async (email, password) => {
       password: password
     }),
   })
-
   return response.json();
 }
 

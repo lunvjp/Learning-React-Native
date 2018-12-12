@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableHighlight } from 'react-native';
+import {View, Text, TextInput, TouchableHighlight, FlatList, Dimensions} from 'react-native';
+import DropdownAlert from 'react-native-dropdownalert';
+import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
+
+import _ from 'lodash';
+
+import { connect } from 'react-redux';
+import {sendParagraph, getParagraph, updateParagraph} from "../../actions/paragraph";
+import { DropDownHolder } from '../../config'
 import { Button } from 'native-base';
 import { Feather } from '@expo/vector-icons';
+import {getWords} from "../../actions/note";
+import NewWordsList from "../../containers/NewWordsList";
 
 class EditSpeechForTopicScreen extends Component {
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigation }) => ({
     title : 'Create Writing',
     // headerTitle:
     //   <Body>
@@ -17,48 +27,144 @@ class EditSpeechForTopicScreen extends Component {
         style={{
           marginRight : 15
         }}
-        onPress={this._onPressButton}
-        >
+        onPress={navigation.state.params._onPressButton}
+      >
         <Text style={{
           fontSize : 15
         }}>Submit</Text>
       </TouchableHighlight>
     )
-  };
+  });
 
   state = {
-    text : 'Two methods exposed via the native element are .focus() and .blur() that will focus or blur the TextInput programmatically.'
+    text : '',
+    paragraph : null,
+    newWords : []
   }
 
   _onPressButton = () => {
-    /* Submit */
-    // const { navigation } = this.props;
-    // this.props.navigation.goBack();
-    // Come back
-    // console.log();
+    const topic_id = this.props.navigation.getParam('topic_id');
+    const { dispatch } = this.props;
+    // console.log('topic_id inside EditSpeechForTopicScreen')
+    // console.log( topic_id )
+    if (this.state.paragraph) {
+      dispatch(updateParagraph(this.state.paragraph.id, this.state.text))
+        .then(() => {
+          DropDownHolder.getDropDown().alertWithType('success', 'Success', 'Update Successfully!');
+        });
+    } else {
+      dispatch(sendParagraph(this.state.text, topic_id)).then(result => {
+        DropDownHolder.getDropDown().alertWithType('success', 'Success', 'Create Successfully!');
+        this.setState({
+          paragraph : result
+        });
+      });
+    }
+  }
+
+  fetchNewWords = () => {
+    // Update topic_id right here.
+    // TODO
+    const { dispatch, topic_id } = this.props;
+    console.log(this.props)
+    // console.log(topic_id)
+    dispatch(getWords(topic_id)).then((words) => {
+      this.setState({ newWords : words });
+      // this.setState({
+      //   todoList : words.map((item) => {
+      //     return {
+      //       key: `item-${item.index}`,
+      //       id : item.word_id,
+      //       name : item.name,
+      //       index : item.index,
+      //       topic_id : topic_id
+      //     }
+      //   })
+      // });
+    })
+  }
+
+  fetchParagraph = () => {
+    const topic_id = this.props.navigation.getParam('topic_id');
+    this.props.dispatch(getParagraph(topic_id))
+      .then(result => {
+        if ( !_.isEmpty(result) ) {
+          const text = result.text;
+          this.setState({
+            text,
+            paragraph : result
+          });
+        }
+      })
+      .catch((error) => {
+        console.log( error )
+      });
+  }
+
+  // componentWillMount() {
+  //   /** get new Words */
+  //   this.fetchNewWords();
+  // }
+
+  componentDidMount () {
+    this.props.navigation.setParams({
+      _onPressButton : this._onPressButton
+    });
+
+    /** fetch Paragraphs */
+    this.fetchParagraph();
+
+    /** get new Words */
+    this.fetchNewWords();
+  }
+
+  displayNewWords = () => {
+    return (
+      <FlatList
+        data={this.state.newWords}
+        renderItem={({item}) => {
+          console.log(item)
+          return (
+            <Text style={{
+              backgroundColor : 'white',
+              // fontWeight : 700,
+              fontSize : 20,
+              padding : 10
+            }}>Jack new word</Text>
+          )
+        }}
+        keyExtractor={() => uuid()}
+      />
+    )
   }
 
   render() {
+    const inputAccessoryViewID = "uniqueID";
     return (
       <View style={{
-        // flex : 1,
-        borderWidth : 1
+        flex : 1
+        // borderWidth : 1
       }}>
         <TextInput
           style={{
-            padding : 20,
-            paddingTop : 20,
-            fontSize : 20
+            padding : 15,
+            paddingTop : 15,
+            fontSize : 20,
+            borderWidth : 1
           }}
           multiline={true}
           numberOfLines={5}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
           placeholder='Write your writing'
+          inputAccessoryViewID={inputAccessoryViewID}
         />
+        <NewWordsList/>
       </View>
     );
   }
 }
 
-export default EditSpeechForTopicScreen;
+const mapStateToProps = state => state;
+
+export default connect(mapStateToProps)(EditSpeechForTopicScreen);

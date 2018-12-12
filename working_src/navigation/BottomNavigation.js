@@ -11,6 +11,7 @@ import AnswerQuestionScreen from "../screens/AnswerQuestionScreen";
 import EditSpeechForTopicScreen from "../screens/EditSpeechForTopicScreen";
 import ProfileScreen from '../screens/ProfileScreen'
 import UserScreen from '../screens/UserScreen'
+import NewWordScreen from '../screens/NewWordScreen'
 
 const ListAndUserStack = createStackNavigator({
   QuestionScreen : {
@@ -22,6 +23,9 @@ const ListAndUserStack = createStackNavigator({
 });
 
 const ListTopicNavigator = createStackNavigator({
+  // NewWordScreen : {
+  //   screen : NewWordScreen
+  // },
   ListTopicScreen : {
     screen : ListTopicScreen
   },
@@ -33,6 +37,9 @@ const ListTopicNavigator = createStackNavigator({
   },
   EditSpeechForTopicScreen : {
     screen : EditSpeechForTopicScreen
+  },
+  NewWordScreen : {
+    screen : NewWordScreen
   }
 });
 
