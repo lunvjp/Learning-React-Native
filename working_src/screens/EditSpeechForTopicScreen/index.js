@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TextInput, TouchableHighlight } from 'react-native';
+import {View, Text, TextInput, TouchableHighlight, FlatList, Dimensions} from 'react-native';
 import DropdownAlert from 'react-native-dropdownalert';
 import { ActionSheetProvider, connectActionSheet } from '@expo/react-native-action-sheet';
 
@@ -10,6 +10,8 @@ import {sendParagraph, getParagraph, updateParagraph} from "../../actions/paragr
 import { DropDownHolder } from '../../config'
 import { Button } from 'native-base';
 import { Feather } from '@expo/vector-icons';
+import {getWords} from "../../actions/note";
+import NewWordsList from "../../containers/NewWordsList";
 
 class EditSpeechForTopicScreen extends Component {
 
@@ -36,7 +38,8 @@ class EditSpeechForTopicScreen extends Component {
 
   state = {
     text : '',
-    paragraph : null
+    paragraph : null,
+    newWords : []
   }
 
   _onPressButton = () => {
@@ -59,20 +62,32 @@ class EditSpeechForTopicScreen extends Component {
     }
   }
 
-  componentDidMount () {
-    console.log('topic_id inside EditSpeechForTopicScreen')
-    console.log( this.props.navigation.getParam('topic_id') )
-    // set function for Submit button
-    this.props.navigation.setParams({
-      _onPressButton : this._onPressButton
-    });
+  fetchNewWords = () => {
+    // Update topic_id right here.
+    // TODO
+    const { dispatch, topic_id } = this.props;
+    console.log(this.props)
+    // console.log(topic_id)
+    dispatch(getWords(topic_id)).then((words) => {
+      this.setState({ newWords : words });
+      // this.setState({
+      //   todoList : words.map((item) => {
+      //     return {
+      //       key: `item-${item.index}`,
+      //       id : item.word_id,
+      //       name : item.name,
+      //       index : item.index,
+      //       topic_id : topic_id
+      //     }
+      //   })
+      // });
+    })
+  }
 
-    /** fetch Paragraphs */
+  fetchParagraph = () => {
     const topic_id = this.props.navigation.getParam('topic_id');
     this.props.dispatch(getParagraph(topic_id))
       .then(result => {
-        // console.log( topic_id )
-        // console.log( result )
         if ( !_.isEmpty(result) ) {
           const text = result.text;
           this.setState({
@@ -86,25 +101,65 @@ class EditSpeechForTopicScreen extends Component {
       });
   }
 
+  // componentWillMount() {
+  //   /** get new Words */
+  //   this.fetchNewWords();
+  // }
+
+  componentDidMount () {
+    this.props.navigation.setParams({
+      _onPressButton : this._onPressButton
+    });
+
+    /** fetch Paragraphs */
+    this.fetchParagraph();
+
+    /** get new Words */
+    this.fetchNewWords();
+  }
+
+  displayNewWords = () => {
+    return (
+      <FlatList
+        data={this.state.newWords}
+        renderItem={({item}) => {
+          console.log(item)
+          return (
+            <Text style={{
+              backgroundColor : 'white',
+              // fontWeight : 700,
+              fontSize : 20,
+              padding : 10
+            }}>Jack new word</Text>
+          )
+        }}
+        keyExtractor={() => uuid()}
+      />
+    )
+  }
+
   render() {
+    const inputAccessoryViewID = "uniqueID";
     return (
       <View style={{
-        // flex : 1,
-        borderWidth : 1
+        flex : 1
+        // borderWidth : 1
       }}>
         <TextInput
           style={{
             padding : 15,
             paddingTop : 15,
-            fontSize : 20
+            fontSize : 20,
+            borderWidth : 1
           }}
           multiline={true}
           numberOfLines={5}
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
           placeholder='Write your writing'
+          inputAccessoryViewID={inputAccessoryViewID}
         />
-
+        <NewWordsList/>
       </View>
     );
   }

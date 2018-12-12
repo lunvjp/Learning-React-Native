@@ -1,8 +1,11 @@
-const BASE_URL = 'http://localhost/englishchatapp/api';
+const BASE_URL = 'http://localhost/englishchatapp/api'; // for Working
+// const BASE_URL = 'http://englishchatapp.esy.es/api'; // for Living
 export const urls = {
   USER: {
     GET: BASE_URL + '/auth/user',
-    LOGIN: BASE_URL + '/auth/login'
+    LOGIN: BASE_URL + '/auth/login',
+    LOGIN_FACEBOOK: BASE_URL + '/auth/loginFacebook',
+    LOGIN_GOOGLE: BASE_URL + '/auth/loginGoogle',
   },
   TOPIC: {
     GET: BASE_URL + '/topic'
@@ -25,7 +28,11 @@ export const urls = {
   },
   NOTE: {
     // name, user_id, topic_id, current_topic_id
+    GET : id => `${BASE_URL}/note/${id}`,
+    GET_BY_TOPIC : (topic_id, user_id) => `${BASE_URL}/note/topic/${topic_id}/user/${user_id}`,
     POST : BASE_URL + '/note',
-    GET : (topic_id, user_id) => `${BASE_URL}/note/topic/${topic_id}/user/${user_id}`
+    PUT : id => `${BASE_URL}/note/${id}`,
+    UPDATE_INDEX : `${BASE_URL}/note/index`,
+    DELETE : BASE_URL + '/note',
   }
 }

@@ -128,6 +128,7 @@ export const getAnswerFromQuestion = (question_id) => {
         question_id : question_id
       })
         .then((result) => {
+          console.log(result)
           dispatch({
             type : GET_ANSWER_QUESTION.SUCCESS,
             // payload : result

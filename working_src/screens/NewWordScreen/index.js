@@ -17,9 +17,12 @@ import {
 import { Feather } from '@expo/vector-icons';
 import { connect } from 'react-redux'
 
-import ListView from './ListView'
+// import ListView from './ListView'
+import ListView from './DraggableFlatList'
+import Example from "./Example";
 // import ListView from './NewListView'
 // import AddWords from './temp'
+// import UselessTextInput from './InputAccessoryView'
 
 class NewWordScreen extends Component {
 
@@ -27,26 +30,23 @@ class NewWordScreen extends Component {
     topic_id : this.props.navigation.getParam('topic_id')
   }
 
-  componentWillMount() {
-    // How to speak English like a native.
-    // const current_topic_id = this.props.navigation.getParam('id')
-    console.log('NewWordScreen: componentWillMount')
-    console.log( this.props )
-  }
   // Update New Word Screen
   render() {
     return (
       <View style={{
         flex : 1,
-        backgroundColor : 'green'
+        // backgroundColor : 'green'
       }}>
+        {/*<ListView topic_id={this.state.topic_id} />*/}
         <ListView topic_id={this.state.topic_id} />
+        {/*<UselessTextInput/>*/}
+
+        {/*<Example/>*/}
         {/*<AddWords/>*/}
       </View>
     );
   }
 }
-//
 
 export default NewWordScreen;
 

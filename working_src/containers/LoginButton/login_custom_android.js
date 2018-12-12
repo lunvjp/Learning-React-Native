@@ -25,7 +25,7 @@ import {keys} from '../../config'
 import styles from './styles';
 import spinner from '../../assets/images/loading.gif';
 
-import {loginDefault, getUser, loginFacebook, loginGoogle} from '../../actions/user';
+import { loginDefault, getUser } from '../../actions/user';
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -41,8 +41,8 @@ class LoginButton extends Component {
       isLoading: false,
     };
 
-    this.buttonAnimated = new Animated.Value(0);
-    this.growAnimated = new Animated.Value(0);
+    // this.buttonAnimated = new Animated.Value(0);
+    // this.growAnimated = new Animated.Value(0);
     // this._onPress = this._onPress.bind(this);
   }
 
@@ -54,15 +54,15 @@ class LoginButton extends Component {
     if (!(email && password)) return
 
     this.setState({isLoading: true});
-    Animated.timing(this.buttonAnimated, {
-      toValue: 1,
-      duration: 200,
-      easing: Easing.linear,
-    }).start();
+    // Animated.timing(this.buttonAnimated, {
+    //   toValue: 1,
+    //   duration: 200,
+    //   easing: Easing.linear,
+    // }).start();
 
     // TODO: Send request to Server.
     dispatch(loginDefault(email, password)).then((result) => {
-      // console.log(data);
+      console.log('Inside resolve of this loginDefault action');
       // await AsyncStorage.setItem('accessToken', 'abc');
 
       // After login
@@ -88,8 +88,8 @@ class LoginButton extends Component {
             // Actions.secondScreen();
             // Navigate to Main Screen right here.
             this.setState({isLoading: false});
-            this.buttonAnimated.setValue(0);
-            this.growAnimated.setValue(0);
+            // this.buttonAnimated.setValue(0);
+            // this.growAnimated.setValue(0);
             this.props.navigation.navigate('MainScreen');
 
           }, 2300);
@@ -125,25 +125,25 @@ class LoginButton extends Component {
         // Wrong password
 
         this.setState({isLoading: false});
-        this.buttonAnimated.setValue(0);
-        this.growAnimated.setValue(0);
+        // this.buttonAnimated.setValue(0);
+        // this.growAnimated.setValue(0);
       }
 
     })
       .catch(error => {
         // create function turn off
         this.setState({isLoading: false});
-        this.buttonAnimated.setValue(0);
-        this.growAnimated.setValue(0);
+        // this.buttonAnimated.setValue(0);
+        // this.growAnimated.setValue(0);
       });
   }
 
   _onGrow() {
-    Animated.timing(this.growAnimated, {
-      toValue: 1,
-      duration: 200,
-      easing: Easing.linear,
-    }).start();
+    // Animated.timing(this.growAnimated, {
+    //   toValue: 1,
+    //   duration: 200,
+    //   easing: Easing.linear,
+    // }).start();
   }
 
   onLoginFacebook = async () => {
@@ -157,34 +157,12 @@ class LoginButton extends Component {
       } = await Expo.Facebook.logInWithReadPermissionsAsync(keys.FACEBOOK_APP_ID, {
         permissions: ['public_profile', 'email'],
       });
-
       if (type === 'success') {
-        const { dispatch } = this.props;
         // Get the user's name using Facebook's Graph API
-
-        // const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
-        // const result = response.json();
-
-        fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${token}`)
-          .then(res => res.json())
-          .then(res => {
-            console.log(res)
-            let user = res.hasOwnProperty('user') ? res.user : res;
-            console.log(user)
-            // return;
-            dispatch(loginFacebook(user) )
-              .then((res) => {
-                console.log(res)
-                this.props.navigation.navigate('MainScreen');
-              })
-              .catch((error) => {
-                console.log(error)
-              });
-          })
-          .catch(e => {console.log(e)})
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        const result = response.json();
+        console.log(result)
         // TODO: loginFacebook action
-        // console.log();
-
         // Alert.alert('Logged in!', `Hi ${(await response.json()).name}!`);
       } else {
         // type === 'cancel'
@@ -216,15 +194,6 @@ class LoginButton extends Component {
       if (result.type === 'success') {
         // return result.accessToken;
         // TODO: loginGoogle action.
-        // use result.user to Dispatch
-        const { dispatch } = this.props;
-        console.log( result.user )
-        dispatch(loginGoogle(result.user))
-          .then((res) => {
-            console.log(res)
-            this.props.navigation.navigate('MainScreen');
-          })
-          .catch(e => console.log(e));
         console.log(result)
       } else {
         // return {cancelled: true};
@@ -236,32 +205,27 @@ class LoginButton extends Component {
   }
 
   render() {
-    const changeWidth = this.buttonAnimated.interpolate({
-      inputRange: [0, 1],
-      outputRange: [DEVICE_WIDTH - MARGIN, MARGIN],
-    });
-    const changeScale = this.growAnimated.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, MARGIN],
-    });
+    // const changeWidth = this.buttonAnimated.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [DEVICE_WIDTH - MARGIN, MARGIN],
+    // });
+    // const changeScale = this.growAnimated.interpolate({
+    //   inputRange: [0, 1],
+    //   outputRange: [1, MARGIN],
+    // });
 
     return (
       <View style={styles.container}>
-        <Animated.View style={{width: changeWidth}}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={this._onPress}
-            activeOpacity={1}>
-            {this.state.isLoading ? (
-              <Image source={spinner} style={styles.image} />
-            ) : (
-              <Text style={styles.text}>LOGIN</Text>
-            )}
-          </TouchableOpacity>
-          <Animated.View
-            style={[styles.circle, {transform: [{scale: changeScale}]}]}
-          />
-        </Animated.View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={this._onPress}
+          activeOpacity={1}>
+          {this.state.isLoading ? (
+            <Image source={spinner} style={styles.image} />
+          ) : (
+            <Text style={styles.text}>LOGIN</Text>
+          )}
+        </TouchableOpacity>
 
 
         <GradientButton

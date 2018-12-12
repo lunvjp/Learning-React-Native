@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import { TextInput, FlatList, View, Text, Dimensions } from 'react-native';
+import {TextInput, FlatList, View, Text, Dimensions, TouchableOpacity} from 'react-native';
 import { Container, Header, Content, List, ListItem, Left, Right, Icon,
   Button, CheckBox, Body
 } from 'native-base';
 import Collapsible from 'react-native-collapsible';
+import DraggableFlatList from 'react-native-draggable-flatlist';
 import uuid from 'uuidv4';
 
-import { addNewWord, getWords, removeWordFromNote} from "../../../actions/note";
+import {addNewWord, getWords, removeWordFromNote, updateIndexTopic} from "../../../actions/note";
 import { connect } from 'react-redux'
 
 import styles from './styles'
@@ -28,8 +29,8 @@ const task = (title) => ({
   checked : false
 });
 
-const word = ({ id, name, index}) => ({
-  // id : uuid(),
+const word = ({ id, key, name, index}) => ({
+  key : `item-${index}`,
   id : id,
   name : name, // string
   index : index, // int
@@ -43,7 +44,13 @@ class ListView extends Component {
     text : '',
     todoList : [],
     topicCheckedList : [],
-    data : []
+    data : [],
+    todoListTemp : [...Array(20)].map((d, index) => ({
+      key: `item-${index}`,
+      label: index,
+      backgroundColor: `rgb(${Math.floor(Math.random() * 255)}, ${index * 5}, ${132})`,
+    }))
+    //
   }
 
   onSubmitEditing = () => {
@@ -75,7 +82,7 @@ class ListView extends Component {
                 id : result.id,
                 name : result.name,
                 index : result.index,
-                topic_id : topic_id
+                // topic_id : topic_id
               })
             ]
           })
@@ -110,6 +117,7 @@ class ListView extends Component {
     });
   }
 
+  /*
   renderItem = ({item}) => {
     return (
       <ListItem noIndent style={{ backgroundColor: "#cde1f9" }}>
@@ -122,6 +130,69 @@ class ListView extends Component {
           ><Text>Delete</Text></Button>
         </Right>
       </ListItem>
+    );
+  }
+  */
+
+  // Custom this function to renderItem.
+  renderItem = ({item, index, move, moveEnd, isActive}) => {
+    return (
+      <TouchableOpacity
+        style={{
+          height: 50,
+          backgroundColor: isActive ? 'blue' : item.backgroundColor,
+          alignItems: 'center',
+          justifyContent: 'center',
+          // alignSelf: 'stretch',
+        }}
+        onLongPress={move}
+        onPressOut={moveEnd}
+      >
+
+        {/*<View style={{*/}
+          {/*flex : 1,*/}
+          {/*flexDirection : 'row',*/}
+          {/*// backgroundColor : 'red'*/}
+        {/*}}>*/}
+          {/*<Text style={{*/}
+            {/*fontWeight: 'bold',*/}
+            {/*color: 'white',*/}
+            {/*fontSize: 32,*/}
+            {/*// backgroundColor : 'green'*/}
+          {/*}}>{item.name}</Text>*/}
+          {/*<Button light*/}
+                  {/*onPress={() => this.onPressDelete(item.id)}*/}
+          {/*><Text>Delete</Text></Button>*/}
+        {/*</View>*/}
+
+        {/*<ListItem style={{*/}
+          {/*flex : 1,*/}
+          {/*// flexDirection : 'row',*/}
+          {/*// backgroundColor : 'red'*/}
+        {/*}}>*/}
+
+        <View style={{
+          flexDirection : 'row',
+          backgroundColor : 'blue',
+          padding : 10
+        }}>
+          <Left>
+            <Text style={{
+              fontWeight: 'bold',
+              color: 'white',
+              fontSize: 32,
+              // backgroundColor : 'green'
+            }}>{item.name}</Text>
+          </Left>
+          <Right>
+            <Button light
+                    onPress={() => this.onPressDelete(item.id)}
+            ><Text>Delete</Text></Button>
+          </Right>
+        {/*</ListItem>*/}
+        </View>
+
+      </TouchableOpacity>
     );
   }
 
@@ -142,23 +213,13 @@ class ListView extends Component {
     }
   }
 
-  componentWillMount() {
-    // console.log('JACK CHECK topic_id')
-    // topic_id = this.props.navigation.getParams('topic_id');
-    //
-    // console.log( this.props )
+  fetchNewWords = () => {
     const { dispatch, topic_id } = this.props;
-    // get current Topic right now.
-    // current_topic_id
-    // console.log( this.props );
     dispatch(getWords(topic_id)).then((words) => {
-      // console.log( words )
-      // TODO:
-      // - Update list of new words right here.
-      // console.log(words)
       this.setState({
         todoList : words.map((item) => {
           return {
+            key: `item-${item.index}`,
             id : item.word_id,
             name : item.name,
             index : item.index,
@@ -167,17 +228,19 @@ class ListView extends Component {
         })
       });
     })
+  }
 
-    // Update just
+  setTopics = () => {
+    const { topic_id } = this.props;
     this.setState({
-      // topicCheckedList : this.props.topics.map((topic) => {
-      //   return topic.id;
-      // }),
-      //
       topicCheckedList : [topic_id],
       data : this.props.topics
-      // Update new words right here (getWords)
     });
+  }
+
+  componentWillMount() {
+    this.fetchNewWords();
+    this.setTopics();
   }
 
   renderListTopicWithFlatList = () => {
@@ -199,7 +262,7 @@ class ListView extends Component {
                           this.onTopicClick(topic)
                         }}/>
               <Body>
-                <Text>{topic.title}</Text>
+              <Text>{topic.title}</Text>
               </Body>
             </ListItem>
           )
@@ -214,19 +277,15 @@ class ListView extends Component {
       <Container style={{
         flex : 1
       }}>
-        {/*<Header/>*/}
-        <Content>
+        {/*<Content>*/}
+
           <TextInput
             style={{height: 40, borderColor: 'gray', borderWidth: 1}}
             onChangeText={(text) => this.setState({text})}
             value={this.state.text}
             onSubmitEditing={this.onSubmitEditing}
           />
-          {/*<Button onPress={() => {*/}
-          {/*// add new Item to the List new words*/}
-          {/*}}>*/}
-          {/*</Button>*/}
-          {/*Settings Topic*/}
+
           <View>
             <ListItem>
               <CheckBox checked={this.state.checkAllTopics}
@@ -250,16 +309,40 @@ class ListView extends Component {
               {this.renderListTopicWithFlatList()}
             </Collapsible>
           </View>
-          <FlatList
+
+          <DraggableFlatList
             data={this.state.todoList}
             renderItem={this.renderItem}
-            keyExtractor={() => uuid()}
+            keyExtractor={(item, index) => `draggable-item-${item.key}`}
+            scrollPercent={5}
+            onMoveEnd={({ data }) => {
+              this.setState({ todoList : data})
+
+              const {dispatch, topic_id} = this.props;
+              dispatch(updateIndexTopic(topic_id, data.map((word) => {
+                return word.id;
+              }).join(','))).then(() => {
+
+                DropDownHolder.getDropDown().alertWithType('success', 'Success', 'Update Successfully!');
+                console.log ('updateIndexTopic inside FlatList')
+              });
+            }}
           />
-        </Content>
+
+        {/*</Content>*/}
       </Container>
     );
   }
+
 }
+
+/**
+  <View style={{
+        flex : 1
+      }}>
+ </View>
+ * @param state
+ */
 
 const mapStateToProps = state => state.question;
 
