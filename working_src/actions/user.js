@@ -42,7 +42,7 @@ export const loginFacebook = (res) => {
             type: GET_AUTH_USER.SUCCESS,
             payload: result
           });
-          AsyncStorage.setItem('englishChatAppUser', result);
+          // AsyncStorage.setItem('englishChatAppUser', result);
           // console.log( result )
           resolve(result)
         })
@@ -88,7 +88,7 @@ export const loginGoogle = (res) => {
             payload: result // UPDATE: result.user
           });
           // await AsyncStorage.setItem('accessToken', result.access_token);
-          AsyncStorage.setItem('englishChatAppUser', result);
+          // AsyncStorage.setItem('englishChatAppUser', result);
           resolve(result)
         })
         .catch((error) => {
@@ -162,7 +162,7 @@ export const getUser = () => {
             type: GET_AUTH_USER.SUCCESS,
             payload: result
           });
-          AsyncStorage.setItem('englishChatAppUser', result);
+          // AsyncStorage.setItem('englishChatAppUser', result);
         }
       })
       .catch((error) => {

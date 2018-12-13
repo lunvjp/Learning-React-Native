@@ -3,7 +3,8 @@ import {
   Platform,
   StyleSheet,
   Text,
-  View
+  View,
+  AsyncStorage
 } from 'react-native';
 import * as Expo from 'expo'
 import DropdownAlert from "react-native-dropdownalert";
@@ -84,6 +85,7 @@ class App extends Component {
     //   'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf')
     // });
     this.loadFonts();
+    // this.removeItemValue('englishChatAppUser');
   }
 
   async loadFonts () {
@@ -101,6 +103,16 @@ class App extends Component {
       'Material Design Icons': require('@expo/vector-icons/fonts/MaterialCommunityIcons.ttf'),
     });
     this.setState({isReady : true});
+  }
+
+  async removeItemValue(key) {
+    try {
+      await AsyncStorage.removeItem(key);
+      return true;
+    }
+    catch(exception) {
+      return false;
+    }
   }
 
   render() {
