@@ -18,7 +18,8 @@ import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import GradientButton from 'react-native-gradient-buttons'
 import { FontAwesome } from '@expo/vector-icons'
-import Expo from 'expo'
+import * as Expo from 'expo'
+// TODO: Check bugs when click Login Facebook
 import firebase from 'firebase'
 
 import {keys} from '../../config'
@@ -262,6 +263,14 @@ class LoginButton extends Component {
             style={[styles.circle, {transform: [{scale: changeScale}]}]}
           />
         </Animated.View>
+
+        {/*<TouchableOpacity onPress={this.onLoginFacebook}>*/}
+          {/*<Text>Login FB</Text>*/}
+        {/*</TouchableOpacity>*/}
+
+        {/*<TouchableOpacity>*/}
+          {/*<Text>Login Google</Text>*/}
+        {/*</TouchableOpacity>*/}
 
 
         <GradientButton

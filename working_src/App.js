@@ -5,7 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
-import Expo, { Font } from 'expo';
+import * as Expo from 'expo'
 import DropdownAlert from "react-native-dropdownalert";
 
 // ====================================================

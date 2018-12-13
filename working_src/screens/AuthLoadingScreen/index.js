@@ -7,8 +7,9 @@ import {
   View,
 } from 'react-native';
 import { connect } from 'react-redux'
+import _ from 'lodash'
 
-import { LOGIN } from '../../actions/actionNames'
+import {GET_AUTH_USER, LOGIN} from '../../actions/actionNames'
 import { getUser } from '../../actions/user'
 
 class AuthLoadingScreen extends React.Component {
@@ -21,13 +22,16 @@ class AuthLoadingScreen extends React.Component {
   _bootstrapAsync = async () => {
     // console.log('Check inside bootstrap async')
     // console.log(this.props)
-    // return;
+
+    const { dispatch } = this.props
     const userToken = await AsyncStorage.getItem('accessToken');
+    // const userInfo = AsyncStorage.getItem('englishChatAppUser');
+    // TODO: save to redux global
+    // console.log(userInfo)
     // get user Infor right here
     // get actions like user log in successfully.
 
     if (userToken) {
-      const { dispatch } = this.props
       // set access Token to Redux State
       dispatch({
         type : LOGIN.SUCCESS,
@@ -38,11 +42,18 @@ class AuthLoadingScreen extends React.Component {
         this.props.navigation.navigate('MainScreen');
       });
     }
+    // else if (!_.isEmpty(userInfo)) {
+    //   dispatch({
+    //     type: GET_AUTH_USER.SUCCESS,
+    //     payload: userInfo
+    //   });
+    //   this.props.navigation.navigate('MainScreen');
+    // }
     else this.props.navigation.navigate('LoginScreen');
-    
+
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    
+
   };
 
   // Render any loading content that you like here

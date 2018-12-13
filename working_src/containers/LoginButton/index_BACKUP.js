@@ -18,7 +18,7 @@ import Dimensions from 'Dimensions';
 import { connect } from 'react-redux';
 import GradientButton from 'react-native-gradient-buttons'
 import { FontAwesome } from '@expo/vector-icons'
-import Expo from 'expo'
+import * as Expo from 'expo'
 import firebase from 'firebase'
 
 import {keys} from '../../config'

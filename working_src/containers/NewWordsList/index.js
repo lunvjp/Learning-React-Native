@@ -63,7 +63,7 @@ class NewWordsList extends Component {
   render () {
     const inputAccessoryViewID = "uniqueID";
     return (
-      <url nativeID={inputAccessoryViewID}>
+      <InputAccessoryView nativeID={inputAccessoryViewID}>
         <View style={{
           flex : 1,
           backgroundColor : 'white',
@@ -73,7 +73,7 @@ class NewWordsList extends Component {
         }}>
           {this.displayNewWords()}
         </View>
-      </url>
+      </InputAccessoryView>
     );
   }
 }
