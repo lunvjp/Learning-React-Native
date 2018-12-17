@@ -16,6 +16,9 @@ const AppStyles = {
     FONT_MEDIUM: 'Roboto-Medium',
     FONT_LIGHT: 'Roboto-Light',
     FONT_THIN: 'Roboto-Thin'
+  },
+  button : {
+
   }
 };
 

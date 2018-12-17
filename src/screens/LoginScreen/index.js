@@ -1,58 +1,29 @@
 import React, {Component} from 'react';
-import { AsyncStorage } from 'react-native';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import Logo from './Logo';
-import Form from './Form';
-import Wallpaper from './Wallpaper';
-import ButtonSubmit from './ButtonSubmit';
-import SignupSection from './SignupSection';
-
-import LoginButton from '../../containers/LoginButton';
+import { AsyncStorage, View, Text } from 'react-native';
+import WallPaper from './WallPaper'
+import LoginButton from './LoginButton'
+import styles from './styles'
 
 class LoginScreen extends Component {
-  state = {
-    email : '',
-    password : ''
-  }
-  // constructor(props) {
-  //   super(props);
-  //   this._bootstrapAsync();
-  // }
-  // _bootstrapAsync = async () => {
-  //   const userToken = await AsyncStorage.getItem('accessToken');
-  //   console.log('Get access Token from Async Storage');
-  //   console.log(userToken);
-  // }
-  onChangeEmail = (text) => {
-    this.setState({
-      email : text
-    });
-  }
-  onChangePassword = (text) => {
-    this.setState({
-      password : text
-    });
-  }
-  render() {
+  render () {
     return (
-      <Wallpaper>
-        <Logo />
-        {/* <Alert/> */}
-        <Form
-          onChangeEmail={this.onChangeEmail}
-          onChangePassword={this.onChangePassword}/>
-
-        <LoginButton
-          {...this.props}
-          email={this.state.email}
-          password={this.state.password} />
-        {/* <LoginFacebookButton/> */}
-        <SignupSection />
-        {/*<ButtonSubmit />*/}
-      </Wallpaper>
+      <WallPaper>
+        <View style={{
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
+          <Text style={styles.title}>Don’t think, it’s time to speak!</Text>
+          <LoginButton/>
+        </View>
+      </WallPaper>
     );
   }
 }
 
-export default LoginScreen;
+export default LoginScreen
+
+
+
+
+
+

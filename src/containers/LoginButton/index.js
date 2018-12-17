@@ -1,6 +1,3 @@
-/** TODO:
- * - import action to this Container
- */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
