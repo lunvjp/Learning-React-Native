@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator} from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createSwitchNavigator, withNavigation} from 'react-navigation';
 
 import LoginScreen from '../screens/LoginScreen';
 import AuthLoadingScreen from '../screens/AuthLoadingScreen';
@@ -33,4 +33,4 @@ const Root = createSwitchNavigator({
 //   })
 // };
 
-export default Root;
+export default withNavigation(Root);

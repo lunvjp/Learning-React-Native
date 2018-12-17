@@ -25,6 +25,8 @@ import styles from './styles';
 import spinner from '../../assets/images/loading.gif';
 
 import {loginDefault, getUser, loginFacebook, loginGoogle} from '../../actions/user';
+import LoginGoogle from './LoginGoogle'
+import LoginFacebook from './LoginFacebook'
 
 const DEVICE_WIDTH = Dimensions.get('window').width;
 const DEVICE_HEIGHT = Dimensions.get('window').height;
@@ -172,6 +174,9 @@ class LoginButton extends Component {
             style={[styles.circle, {transform: [{scale: changeScale}]}]}
           />
         </Animated.View>
+
+        <LoginFacebook/>
+        <LoginGoogle/>
 
       </View>
     );

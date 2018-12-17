@@ -23,7 +23,6 @@ class LoginButton extends Component {
       <View style={styles.container}>
         <LoginFacebook/>
         <LoginGoogle/>
-
       </View>
     );
   }

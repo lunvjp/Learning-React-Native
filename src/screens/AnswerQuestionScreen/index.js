@@ -107,7 +107,10 @@ class AnswerQuestionScreen extends Component {
           backgroundColor : '#fff'
         }]}>{title}</Text>
         {/*<NewWordsList/>*/}
-        <ListAnswers {...this.props} />
+        <ListAnswers
+          // {...this.props}
+
+        />
       </View>
     );
   }

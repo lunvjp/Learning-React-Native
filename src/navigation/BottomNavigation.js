@@ -25,9 +25,6 @@ const ListAndUserStack = createStackNavigator({
 });
 
 const ListTopicNavigator = createStackNavigator({
-  // NewWordScreen : {
-  //   screen : NewWordScreen
-  // },
   ListTopicScreen : {
     screen : ListTopicScreen
   },

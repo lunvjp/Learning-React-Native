@@ -56,4 +56,3 @@ class LoginScreen extends Component {
 }
 
 export default LoginScreen;
-// export default connect()(LoginScreen);

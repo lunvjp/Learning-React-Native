@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import { GiftedChat, InputToolbar} from 'react-native-gifted-chat';
 import emojiUtils from 'emoji-utils';
+import Spinner from 'react-native-spinkit'
+import {withNavigation} from 'react-navigation';
 
 import SlackMessage from './SlackMessage';
 
@@ -14,14 +16,33 @@ import NewWordsList from "../../containers/NewWordsList";
 
 class ListAnswers extends Component {
   state = {
+    isReady : false,
     messages: [],
     question_id : this.props.navigation.getParam('id'),
     userAnswer : this.props.navigation.getParam('answer', ''), // default : null
-    textInput :  this.props.navigation.getParam('answer', '') ? this.props.navigation.getParam('answer', '').answer_text : '',
+    // textInput :  this.props.navigation.getParam('answer', '') ? this.props.navigation.getParam('answer', '').answer_text : '',
+    textInput :  '',
     checkUpdate : !!this.props.navigation.getParam('answer', ''),
   }
-
+  componentWillMount() {
+    this.setAnswer();
+  }
+  setAnswer = async () => {
+    const { answer_text } = this.props.navigation.getParam('answer')
+    console.log('JACK CHECK HOW MANY TIMES')
+    console.log(answer_text)
+    this.setState({
+      textInput : answer_text
+    });
+    this.setState({
+      isReady : true
+    });
+  }
   componentDidMount () {
+    // this.setAnswer();
+    console.log('jack check props Children ListAnswers')
+    console.log(this.props)
+
     const { dispatch } = this.props;
     dispatch(getAnswerFromQuestion(this.state.question_id)).then((messages) => {
       this.setState({
@@ -150,6 +171,10 @@ class ListAnswers extends Component {
   render() {
     const answer = this.props.navigation.getParam('answer', '');
     const textInput = (answer && answer.answer_text) ? answer.answer_text : '';
+
+    // TODO: return <Spinner type={'ThreeBounce'}/>;
+    // if (!this.state.isReady) return <Spinner type={'ThreeBounce'}/>;
+
     return (
       <GiftedChat
         // ref={GiftedChatRef => {
@@ -166,7 +191,8 @@ class ListAnswers extends Component {
         renderMessage={this.renderMessage}
         // renderSystemMessage={this.renderSystemMessage}
         showUserAvatar={true}
-        text={this.state.textInput || textInput}
+        // text={this.state.textInput || textInput}
+        text={this.state.textInput}
         onInputTextChanged={(textInput) => this.setState({textInput})}
         // renderInputToolbar={this.renderInputToolbar}
         // placeholder={this.props.navigation.getParam('answer', '').answer_text}
@@ -177,4 +203,4 @@ class ListAnswers extends Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps)(ListAnswers);
+export default connect(mapStateToProps)(withNavigation(ListAnswers));

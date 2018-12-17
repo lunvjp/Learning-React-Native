@@ -3,25 +3,58 @@ import {Component} from "react";
 import styles from "../styles";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import React from "react";
-import {View, Text, TouchableOpacity} from "react-native";
-import {FBLoginManager, FBLogin} from 'react-native-facebook-login';
+import {View, Text, TouchableOpacity, Platform} from "react-native";
+// import {FBLoginManager, FBLogin} from 'react-native-facebook-login';
+import { LoginManager, AccessToken} from "react-native-fbsdk";
 
 // FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.Web); // defaults to Native
 
 // import {loginDefault, getUser, loginFacebook, loginGoogle} from '../../../actions/user';
+// LoginManager.setLoginBehavior('web');
 
 class LoginFacebook extends Component {
+  componentWillMount () {
+    if (Platform.OS === 'ios') {
+      LoginManager.setLoginBehavior('web');
+    } else
+      LoginManager.setLoginBehavior('web_only');
+  }
   onLoginFacebook = async () => {
+    // WEB_VIEW
+    LoginManager.logInWithReadPermissions(["public_profile"]).then(
+      function(result) {
+        // console.log(result)
+        if (result.isCancelled) {
+          console.log("Login cancelled");
+        } else {
+          console.log(
+            "Login success with permissions: " +
+            result.grantedPermissions.toString()
+          );
+          AccessToken.getCurrentAccessToken().then(
+            (data) => {
+              console.log(data)
+              // console.log(data.accessToken.toString())
 
-    FBLoginManager.login(function(error, data){
-      if (!error) {
-        console.log(data)
-        // _this.setState({ user : data});
-        // _this.props.onLogin && _this.props.onLogin();
-      } else {
-        console.log(error, data);
+              // --------------------------------
+              fetch(`https://graph.facebook.com/me?fields=id,name,email&access_token=${data.accessToken.toString()}`)
+                .then(res => res.json())
+                .then(res => {
+                  console.log(res)
+
+                  let user = res.hasOwnProperty('user') ? res.user : res;
+                  console.log(user)
+                })
+                .catch(e => {console.log(e)})
+              // --------------------------------
+            }
+          )
+        }
+      },
+      function(error) {
+        console.log("Login fail with error: " + error);
       }
-    });
+    );
 
     // FBLoginManager.loginWithPermissions(["email","user_friends"], function(error, data){
     //   if (!error) {

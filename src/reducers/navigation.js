@@ -2,21 +2,24 @@ import { NavigationActions } from 'react-navigation';
 
 import Root from '../navigation/Root';
 
-// const initialState = Root.router.getStateForAction(Root.router.getActionForPathAndParams('Unauthorized'));
-
-// const initialNavState = {
-//   index: 1,
-//   routes: [
-//     { key: 'InitA', routeName: 'Unauthorized' },
-//     { key: 'InitB', routeName: 'Authorized' },
-//   ],
-// };
-
+/*First*/
 const initialState = Root.router.getStateForAction(NavigationActions.init());
+
+/*Second*/
+// const initialState = Root.router.getStateForAction(NavigationActions.navigate({ routeName: 'AuthLoadingScreen' }));
+
+/*Third one*/
+/*use new way to get initialState of all actions*/
+const firstAction = Root.router.getActionForPathAndParams('AuthLoadingScreen');
+const tempNavState = Root.router.getStateForAction(firstAction);
+
+const initialNavState = Root.router.getStateForAction(
+  tempNavState
+);
+// ---------------------------------------------------------------
 
 export default (state = initialState, action) => {
   // let nextState;
-  // console.log(action);
   // switch(action.type) {
   //   case 'LoginScreen':
   //     nextState = Root.router.getStateForAction(
@@ -38,7 +41,7 @@ export default (state = initialState, action) => {
   //     break;
   //   default : break
   // }
-  
+
   // return Navigator.router.getStateForAction(action, state)
   let newState = Root.router.getStateForAction(action, state);
   return newState || state;

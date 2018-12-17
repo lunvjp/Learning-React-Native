@@ -32,7 +32,7 @@ export const loginFacebook = (res) => {
     return new Promise((resolve, reject) => {
       fetchUserFacebook(res)
         .then(async (result) => {
-          // console.log(result)
+          console.log(result)
           dispatch({
             type: LOGIN.SUCCESS,
             // payload: result // user

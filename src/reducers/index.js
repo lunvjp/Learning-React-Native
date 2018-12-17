@@ -11,6 +11,10 @@ import { combineReducers } from 'redux';
 
 // const navReducer = createNavigationReducer(Root);
 
+// console.log(navigation)
+// console.log(auth)
+// console.log(question)
+
 const rootReducer = combineReducers({
 //   messages,
 //   meta,
