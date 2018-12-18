@@ -9,8 +9,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.react.ReactApplication;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import co.apptailor.googlesignin.RNGoogleSigninPackage;
-// import com.magus.fblogin.FacebookLoginPackage;
 import com.BV.LinearGradient.LinearGradientPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.react.rnspinkit.RNSpinkitPackage;
@@ -39,10 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new RNGoogleSigninPackage(),
             new FBSDKPackage(mCallbackManager),
             new RNGoogleSigninPackage(),
-            // new FacebookLoginPackage(),
             new LinearGradientPackage(),
             new VectorIconsPackage(),
             new RNSpinkitPackage()
