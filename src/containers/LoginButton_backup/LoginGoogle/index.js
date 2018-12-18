@@ -13,16 +13,17 @@ import {
   AsyncStorage
 } from 'react-native';
 import styles from "../styles";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {connect} from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import {loginGoogle} from "../../../actions/user";
-import {images} from "../../../config";
 
+// import {loginDefault, getUser, loginFacebook, loginGoogle} from '../../../actions/user';
 GoogleSignin.configure();
 
 class LoginGoogle extends Component {
   onLoginGoogle = async () => {
-    // console.log(this.props)
+    console.log(this.props)
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
@@ -48,17 +49,17 @@ class LoginGoogle extends Component {
   render () {
     return (
       <TouchableOpacity
-        activeOpacity={0.85}
-        style={[styles.socialButton]}
-        onPress={this.onLoginGoogle}>
-        <View style={{
-          flexDirection : 'row'
-        }}>
-          <View style={styles.socialButtonIcon}>
-            <Image source={images.loginScreen.google}/>
-          </View>
-          <Text style={[styles.socialButtonText, styles.socialButtonGoogleText]}>GOOGLE</Text>
-        </View>
+        style={[styles.socialButton, {
+          fontSize : 20,
+          height : 50
+        }]}
+        onPress={this.onLoginGoogle}
+      >
+        <FontAwesome
+          name="google"
+          style={{ color: "white", fontSize: 18 }}
+        />
+        <Text>{" "}Sign-In with Google</Text>
       </TouchableOpacity>
     )
   }

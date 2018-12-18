@@ -1,14 +1,27 @@
-import React, {Component} from "react"
-import {TouchableHighlight, TouchableOpacity, Image, Text, StyleSheet, View} from 'react-native'
-import {images} from '../../../config'
-import styles from '../styles'
-import {AccessToken, LoginManager} from "react-native-fbsdk";
-import {loginFacebook} from "../../../actions/user";
-import connect from "react-redux/es/connect/connect";
-import {withNavigation} from "react-navigation";
+import {Component} from "react";
+// import GradientButton from "react-native-gradient-buttons";
+import styles from "../styles";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import React from "react";
+import {View, Text, TouchableOpacity, Platform} from "react-native";
+import {withNavigation} from 'react-navigation';
+// import {FBLoginManager, FBLogin} from 'react-native-facebook-login';
+import { LoginManager, AccessToken} from "react-native-fbsdk";
+import { connect } from 'react-redux';
+import { loginFacebook } from "../../../actions/user";
+
+// FBLoginManager.setLoginBehavior(FBLoginManager.LoginBehaviors.Web); // defaults to Native
+
+// import {loginDefault, getUser, loginFacebook, loginGoogle} from '../../../actions/user';
+// LoginManager.setLoginBehavior('web');
 
 class LoginFacebook extends Component {
-
+  // componentWillMount () {
+  //   if (Platform.OS === 'ios') {
+  //     LoginManager.setLoginBehavior('web');
+  //   } else
+  //     LoginManager.setLoginBehavior('web_only');
+  // }
   onLoginFacebook = async () => {
     const {dispatch, navigation} = this.props;
     // TODO:
@@ -52,21 +65,20 @@ class LoginFacebook extends Component {
     );
 
   }
-
   render () {
     return (
       <TouchableOpacity
-        activeOpacity={0.85}
-        style={[styles.socialButton, styles.facebookButton]}
-        onPress={this.onLoginFacebook}>
-        <View style={{
-          flexDirection : 'row'
-        }}>
-          <View style={styles.socialButtonIcon}>
-            <Image source={images.loginScreen.facebook}/>
-          </View>
-          <Text style={styles.socialButtonText}>FACEBOOK</Text>
-        </View>
+        style={[styles.socialButton, {
+          fontSize : 20,
+          height : 50
+        }]}
+        onPress={this.onLoginFacebook}
+      >
+        <FontAwesome
+          name="facebook"
+          style={{ color: "white", fontSize: 18 }}
+        />
+        <Text>{" "}Sign-In with Facebook</Text>
       </TouchableOpacity>
     )
   }

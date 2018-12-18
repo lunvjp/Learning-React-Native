@@ -46,9 +46,11 @@ const BottomNavigation = createBottomTabNavigator({
   ListTopic : {
     screen : ListTopicNavigator
   },
-  Chat : {
-    screen : ChatScreen
-  },
+  // TODO:
+  // Update chat Feature later.
+  // Chat : {
+  //   screen : ChatScreen
+  // },
   // Profile : {
   //   screen : ProfileScreen
   // },
@@ -66,11 +68,12 @@ const BottomNavigation = createBottomTabNavigator({
         iconName = `people${focused ? '' : '-outline'}`;
         return <MaterialIcons name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
       }
-      else if (routeName === 'Chat') {
-        iconName = 'message';
-        // iconName = `ios-options${focused ? '' : '-outline'}`;
-        return <Entypo name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
-      } else if (routeName === 'User') {
+      // else if (routeName === 'Chat') {
+      //   iconName = 'message';
+      //   // iconName = `ios-options${focused ? '' : '-outline'}`;
+      //   return <Entypo name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
+      // }
+      else if (routeName === 'User') {
         iconName = `user-circle${focused ? '' : '-o'}`;
         return <FontAwesome name={iconName} size={horizontal ? 20 : 25} color={tintColor} />;
       }

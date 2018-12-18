@@ -8,15 +8,4 @@ const styles = StyleSheet.create({
   }
 });
 
-/*
-font-family: SFProDisplay;
-  font-size: 30.7px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0.7px;
-  color: #ffffff;
- */
-
 export default styles

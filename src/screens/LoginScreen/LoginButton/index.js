@@ -8,8 +8,8 @@ class LoginButton extends Component {
   render () {
     return (
       <View style={{
-        flex : 1,
-        padding : 30
+        // flex : 1,
+        // padding : 30
       }}>
         <LoginFacebook/>
         <LoginGoogle/>

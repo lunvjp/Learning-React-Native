@@ -4,6 +4,7 @@ const images = {
     wave: require('../assets/images/wave.png')
   },
   loginScreen : {
+    mainImage : require('../assets/images/LoginScreen/main-image.png'),
     background : require('../assets/images/LoginScreen/BG-login-screen.png'),
     google : require('../assets/icons/google.png'),
     facebook : require('../assets/icons/facebook.png')

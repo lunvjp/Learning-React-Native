@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     borderRadius : 4,
     padding : 20,
     backgroundColor : '#ffffff',
-    marginBottom : 10
+    marginBottom : 15
   },
   facebookButton : {
     backgroundColor : '#3b5998'

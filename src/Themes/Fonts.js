@@ -1,6 +1,6 @@
 const type = {
   base: 'Montserrat-Light',
-  bold: 'Montserrat-SemiBold',
+  bold: 'Montserrat-Bold',
   semiBold: 'Montserrat-SemiBold',
   medium: 'Montserrat-Medium'
 }

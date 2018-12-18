@@ -1,46 +1,37 @@
-import {StyleSheet, Dimensions} from "react-native";
+import {StyleSheet} from "react-native";
 
-const MARGIN = 40;
-const DEVICE_WIDTH = Dimensions.get('window').width;
-
+// TODO:
+// - Custom config to Border button
+// - Custom color
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // top: -95,
-    alignItems: 'center',
-    justifyContent: 'flex-start'
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F035E0',
-    height: MARGIN,
-    borderRadius: 20,
-    zIndex: 100,
-  },
   socialButton : {
-    marginTop: 8,
-    width : DEVICE_WIDTH - 40
+    flexDirection : 'row',
+    justifyContent : 'center',
+    alignItems : 'center',
+    height: 48,
+    borderRadius : 4,
+    padding : 20,
+    backgroundColor : '#ffffff',
+    marginBottom : 15
   },
-  circle: {
-    height: MARGIN,
-    width: MARGIN,
-    marginTop: -MARGIN,
-    borderWidth: 1,
-    borderColor: '#F035E0',
-    borderRadius: 100,
-    alignSelf: 'center',
-    zIndex: 99,
-    backgroundColor: '#F035E0',
+  facebookButton : {
+    backgroundColor : '#3b5998'
   },
-  text: {
-    color: 'white',
-    backgroundColor: 'transparent',
+  socialButtonIcon : {
+    flex : 1,
+    marginRight : 20,
+    justifyContent: 'center',
+    flexDirection: 'row'
   },
-  image: {
-    width: 24,
-    height: 24,
+  socialButtonText : {
+    flex : 3,
+    fontWeight: '400',
+    color: '#ffffff',
+    fontSize : 17
   },
+  socialButtonGoogleText : {
+    color : '#3c3c3c'
+  }
 });
 
-export default styles;
+export default styles
