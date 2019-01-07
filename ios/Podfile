@@ -9,6 +9,7 @@ target 'englishchatapp' do
   pod 'FBSDKLoginKit'
   pod 'FBSDKShareKit'
   pod 'FBSDKPlacesKit'
+  # pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
   # Pods for englishchatapp
 
   target 'englishchatapp-tvOSTests' do
