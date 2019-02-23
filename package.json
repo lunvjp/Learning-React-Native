@@ -15,7 +15,7 @@
     "md5": "^2.2.1",
     "native-base": "^2.8.1",
     "path": "^0.12.7",
-    "prop-types": "^15.6.2",
+    "prop-types": "^15.7.1",
     "query-string": "^6.2.0",
     "react": "16.6.3",
     "react-native": "^0.57.8",
@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "babel-jest": "23.6.0",
+    "babel-polyfill": "^6.26.0",
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.5",
     "react-test-renderer": "16.6.3"
