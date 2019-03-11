@@ -30,7 +30,7 @@
     "firebase": "^5.7.0",
     "lodash": "^4.17.11",
     "md5": "^2.2.1",
-    "native-base": "^2.8.1",
+    "native-base": "^2.12.1",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
     "ramda": "^0.25.0",
