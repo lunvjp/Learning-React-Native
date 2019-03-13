@@ -4,6 +4,9 @@ import {GET_MESSAGES, SUBMIT_ANSWER_TO_QUESTION,
   UPDATE_ANSWER
 } from './type';
 import {urls} from '../../config';
+// TODO:
+// Use "axios" to update timeout for these APIs Request.
+import axios from 'axios';
 
 import queryString from 'query-string'
 
@@ -57,7 +60,6 @@ export const sendMessage = (question_id, answer_text) => {
 /* END: Submit answers to a question */
 
 /* Update message */
-// jack doing
 export const fetchUpdate = async ({answer_id, answer_text}) => {
   const response = await fetch(urls.ANSWER.PUT(answer_id), {
     method: 'PUT',
@@ -69,7 +71,7 @@ export const fetchUpdate = async ({answer_id, answer_text}) => {
       answer_text : answer_text
     })
   });
-  console.log( urls.ANSWER.PUT(answer_id) )
+
   return response.json();
 }
 

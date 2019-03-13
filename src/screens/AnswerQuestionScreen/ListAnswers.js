@@ -46,11 +46,13 @@ class ListAnswers extends Component {
   _getAnswerFromQuestion = () => {
     const { dispatch } = this.props;
     dispatch(getAnswerFromQuestion(this.state.question_id)).then((messages) => {
+      console.log(messages)
+      // return;
       this.setState({
         messages : messages.map((message) => {
           return {
-            ...message,
-            _id : message.id,
+            // ...message,
+            _id : message.id.toString(),
             text : message.answer_text,
             createdAt: new Date(message.created_at),
             user : {
@@ -209,15 +211,9 @@ class ListAnswers extends Component {
     // TODO: return <Spinner type={'ThreeBounce'}/>;
     // if (!this.state.isReady) return <Spinner type={'ThreeBounce'}/>;
 
-    // TODO:
-    // - Fixing a warning about inValid props of List message component in this screen.
-    // console.log('ACTION: Check this.state.textInput');
-    // console.log(this.state.textInput);
-    // console.log(this.props.navigation.getParam('answer', ''));
-
     // TODO: Should check these things.
     // renderAccessory - Custom second line of actions below the message composer
-    // renderComposer - Custom
+    // renderComposer - TextInput
 
     return (
       <GiftedChat
@@ -236,17 +232,29 @@ class ListAnswers extends Component {
         // renderSystemMessage={this.renderSystemMessage}
         showUserAvatar={true}
         text={this.state.textInput}
-        // TODO:
-        // Fixing an issue with this props below
-        // https://github.com/FaridSafi/react-native-gifted-chat/issues/638
         onInputTextChanged={(textInput) => {
           if (textInput && this.textMessageInput && this.state.onFocusTextMessageInput) {
             this.setState({textInput})
           }
         }}
         renderComposer={this.renderComposer}
+        // TODO:
+        // Fix an Bug with Big space between Accessory and Text Input.
+        // renderAccessory={() => {
+        //   return (
+        //     <View style={{
+        //       backgroundColor : 'red',
+        //       padding : 0
+        //     }}>
+        //       <Text>Jack</Text>
+        //     </View>
+        //   )
+        // }}
+        // accessoryStyle={{
+        //   padding : 0,
+        //   backgroundColor : 'red',
+        // }}
         renderInputToolbar={this.renderInputToolbar}
-        // placeholder={this.props.navigation.getParam('answer', '').answer_text}
         placeholder="Let's answer..."
       />
     );

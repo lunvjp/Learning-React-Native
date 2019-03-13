@@ -47,7 +47,9 @@ class ListTopicScreen extends Component {
   render () {
     // const { isCurrentDay, activeDay, data } = this.state
     return (
-      <PurpleGradient style={styles.linearGradient}>
+      <PurpleGradient style={[styles.linearGradient , {
+        flex : 1
+      }]}>
         {/* <DayToggle
           activeDay={activeDay}
           onPressIn={this.setActiveDay}
