@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, ScrollView, AppRegistry, TextInput, InputAccessoryView, Button } from 'react-native';
+import { View, ScrollView, AppRegistry, TextInput, Button } from 'react-native';
+// InputAccessoryView
 
 export default class UselessTextInput extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ export default class UselessTextInput extends Component {
   }
 
   render() {
-    const inputAccessoryViewID = "uniqueID";
+    // const inputAccessoryViewID = "uniqueID";
     return (
       <View>
         <ScrollView keyboardDismissMode="interactive">
@@ -17,19 +18,18 @@ export default class UselessTextInput extends Component {
               padding: 10,
               paddingTop: 50,
             }}
-            inputAccessoryViewID={inputAccessoryViewID}
+            // inputAccessoryViewID={inputAccessoryViewID}
             onChangeText={text => this.setState({text})}
             value={this.state.text}
           />
         </ScrollView>
 
-        <InputAccessoryView nativeID={inputAccessoryViewID}>
-
-          <Button
-            onPress={() => this.setState({text: 'Placeholder Text'})}
-            title="Reset Text"
-          />
-        </InputAccessoryView>
+        {/*<InputAccessoryView nativeID={inputAccessoryViewID}>*/}
+          {/*<Button*/}
+            {/*onPress={() => this.setState({text: 'Placeholder Text'})}*/}
+            {/*title="Reset Text"*/}
+          {/*/>*/}
+        {/*</InputAccessoryView>*/}
       </View>
     );
   }

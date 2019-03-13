@@ -52,15 +52,15 @@ class QuestionScreen extends Component {
         >
           <Feather name='edit' size={30}/>
         </Button>
-        <Button
-          transparent
-          style={{
-            marginRight : 7
-          }}
-          onPress={navigation.state.params._onPressOpenNewWordScreenButton}
-        >
-          <FontAwesome name='file-word-o' size={30}/>
-        </Button>
+        {/*<Button*/}
+          {/*transparent*/}
+          {/*style={{*/}
+            {/*marginRight : 7*/}
+          {/*}}*/}
+          {/*onPress={navigation.state.params._onPressOpenNewWordScreenButton}*/}
+        {/*>*/}
+          {/*<FontAwesome name='file-word-o' size={30}/>*/}
+        {/*</Button>*/}
       </View>
     )
   });

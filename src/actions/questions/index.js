@@ -106,8 +106,9 @@ export const updateMessage = (answer_id, answer_text) => {
 
 // TODO: Jack: doing later.
 export const fetchAnswerOfQuestion = async ({question_id, user_id}) => {
+  let queryString = '';
   if (user_id) {
-    let queryString = queryString.stringify({
+    queryString = queryString.stringify({
       user_id : user_id
     })
   }
@@ -128,7 +129,6 @@ export const getAnswerFromQuestion = (question_id) => {
         question_id : question_id
       })
         .then((result) => {
-          console.log(result)
           dispatch({
             type : GET_ANSWER_QUESTION.SUCCESS,
             // payload : result
@@ -136,6 +136,9 @@ export const getAnswerFromQuestion = (question_id) => {
           resolve(result);
         })
         .catch((error) => {
+          console.log(error)
+          console.log('Check Error inside getAnswerFromQuestion action');
+          return;
           dispatch({
             type : GET_ANSWER_QUESTION.ERROR,
             payload : error

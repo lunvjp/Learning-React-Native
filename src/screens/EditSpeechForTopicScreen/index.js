@@ -134,7 +134,7 @@ class EditSpeechForTopicScreen extends Component {
   }
 
   render() {
-    const inputAccessoryViewID = "uniqueID";
+    // const inputAccessoryViewID = "uniqueID";
     return (
       <View style={{
         flex : 1
@@ -152,9 +152,9 @@ class EditSpeechForTopicScreen extends Component {
           onChangeText={(text) => this.setState({text})}
           value={this.state.text}
           placeholder='Write your writing'
-          inputAccessoryViewID={inputAccessoryViewID}
+          // inputAccessoryViewID={inputAccessoryViewID}
         />
-        <NewWordsList/>
+        {/*<NewWordsList/>*/}
       </View>
     );
   }

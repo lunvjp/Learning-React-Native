@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { GiftedChat, InputToolbar} from 'react-native-gifted-chat';
+import { GiftedChat, InputToolbar, Composer} from 'react-native-gifted-chat';
 import emojiUtils from 'emoji-utils';
 import Spinner from 'react-native-spinkit'
 import {withNavigation} from 'react-navigation';
@@ -20,29 +20,30 @@ class ListAnswers extends Component {
     messages: [],
     question_id : this.props.navigation.getParam('id'),
     userAnswer : this.props.navigation.getParam('answer', ''), // default : null
-    // textInput :  this.props.navigation.getParam('answer', '') ? this.props.navigation.getParam('answer', '').answer_text : '',
-    textInput :  '',
+    textInput :  this.props.navigation.getParam('answer', '') ? this.props.navigation.getParam('answer', '').answer_text : '',
+    // textInput :  '',
+    textInputFromProps : this.props.navigation.getParam('answer', '') ? this.props.navigation.getParam('answer', '').answer_text : '',
     checkUpdate : !!this.props.navigation.getParam('answer', ''),
+    onFocusTextMessageInput : false
   }
   componentWillMount() {
-    this.setAnswer();
-  }
-  setAnswer = async () => {
-    const { answer_text } = this.props.navigation.getParam('answer')
-    console.log('JACK CHECK HOW MANY TIMES')
-    console.log(answer_text)
-    this.setState({
-      textInput : answer_text
-    });
-    this.setState({
-      isReady : true
-    });
-  }
-  componentDidMount () {
     // this.setAnswer();
-    console.log('jack check props Children ListAnswers')
-    console.log(this.props)
+  }
+  setAnswer = () => {
+    // console.log(this.props.navigation.getParam('answer'));
+    // const { answer_text } = this.props.navigation.getParam('answer')
+    if (this.props.navigation.getParam('answer')) {
+      this.setState({
+        textInput : this.props.navigation.getParam('answer')
+      }, () => {
+        this.setState({
+          isReady : true
+        })
+      });
+    }
+  }
 
+  _getAnswerFromQuestion = () => {
     const { dispatch } = this.props;
     dispatch(getAnswerFromQuestion(this.state.question_id)).then((messages) => {
       this.setState({
@@ -63,12 +64,21 @@ class ListAnswers extends Component {
     });
   }
 
+  componentDidMount () {
+    // Not sure about What this function is really used for.
+    // this.setAnswer();
+
+    // TODO:
+    // - Have a bug when Current user have an Answer with the Topic and move to this Screen.
+    this._getAnswerFromQuestion();
+
+  }
 
   onSend(messages = []) {
     const { navigation, dispatch } = this.props;
 
     // const user_id = user.id;
-    const question_id = navigation.getParam('id','Default ID');
+    const question_id = navigation.getParam('id',0);
     const answer_text = messages[0].text;
     // messages[0].id = 10;
 
@@ -135,10 +145,6 @@ class ListAnswers extends Component {
     this.props.navigation.state.params.onNavigateBack(questionData)
   }
 
-  setTextInput = (textInput) => {
-    this.setState({textInput})
-  }
-
   renderMessage(props) {
     const { currentMessage: { text: currText } } = props;
 
@@ -159,21 +165,59 @@ class ListAnswers extends Component {
     );
   }
 
-  renderInputToolbar = () => {
+
+  renderComposer = (props) => {
     return (
-      <View>
-        {/*<NewWordsList/>*/}
-        <InputToolbar/>
-      </View>
+      <Composer
+        {...props}
+        textInputProps={{
+          onFocus : () => {
+            this.setState({
+              onFocusTextMessageInput : true
+            })
+          },
+          onBlur : () => {
+            this.setState({
+              onFocusTextMessageInput : false
+            })
+          }
+        }}
+        ref={ref => this.textMessageInput = ref}
+      />
+    );
+  }
+
+  renderInputToolbar = (props) => {
+    // return (
+    //   <View>
+    //     {/*<NewWordsList/>*/}
+    //     <InputToolbar/>
+    //   </View>
+    // );
+
+    return (
+      <InputToolbar
+        {...props}
+      />
     );
   }
 
   render() {
-    const answer = this.props.navigation.getParam('answer', '');
-    const textInput = (answer && answer.answer_text) ? answer.answer_text : '';
+    // const answer = this.props.navigation.getParam('answer', '');
+    // const textInput = (answer && answer.answer_text) ? answer.answer_text : '';
 
     // TODO: return <Spinner type={'ThreeBounce'}/>;
     // if (!this.state.isReady) return <Spinner type={'ThreeBounce'}/>;
+
+    // TODO:
+    // - Fixing a warning about inValid props of List message component in this screen.
+    // console.log('ACTION: Check this.state.textInput');
+    // console.log(this.state.textInput);
+    // console.log(this.props.navigation.getParam('answer', ''));
+
+    // TODO: Should check these things.
+    // renderAccessory - Custom second line of actions below the message composer
+    // renderComposer - Custom
 
     return (
       <GiftedChat
@@ -191,11 +235,19 @@ class ListAnswers extends Component {
         renderMessage={this.renderMessage}
         // renderSystemMessage={this.renderSystemMessage}
         showUserAvatar={true}
-        // text={this.state.textInput || textInput}
         text={this.state.textInput}
-        onInputTextChanged={(textInput) => this.setState({textInput})}
-        // renderInputToolbar={this.renderInputToolbar}
+        // TODO:
+        // Fixing an issue with this props below
+        // https://github.com/FaridSafi/react-native-gifted-chat/issues/638
+        onInputTextChanged={(textInput) => {
+          if (textInput && this.textMessageInput && this.state.onFocusTextMessageInput) {
+            this.setState({textInput})
+          }
+        }}
+        renderComposer={this.renderComposer}
+        renderInputToolbar={this.renderInputToolbar}
         // placeholder={this.props.navigation.getParam('answer', '').answer_text}
+        placeholder="Let's answer..."
       />
     );
   }
