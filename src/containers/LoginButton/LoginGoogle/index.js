@@ -25,6 +25,7 @@ class LoginGoogle extends Component {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
+      console.log(userInfo)
       // this.setState({ userInfo });
       this.props.dispatch(loginGoogle(userInfo.user))
         .then((res) => {

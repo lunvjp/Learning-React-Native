@@ -106,30 +106,30 @@ export default class Talk extends React.Component {
                 {/* <Text style={styles.name}>{name}</Text> */}
                 <Text style={styles.title}>{title}</Text>
               </View>
-              <FadeIn>
+              {/* <FadeIn>
                 <Image style={styles.avatar} source={{uri: avatarURL}} />
-              </FadeIn>
-              <FadeIn style={{
-                marginLeft : 5
-              }}>
-                <Image style={styles.avatar} source={{uri: avatarURL}} />
-              </FadeIn>
-              <FadeIn style={{
-                marginLeft : 5
-              }}>
-                <Image style={styles.avatar} source={{uri: avatarURL}} />
-              </FadeIn>
+              </FadeIn> */}
+              {/*<FadeIn style={{*/}
+                {/*marginLeft : 5*/}
+              {/*}}>*/}
+                {/*<Image style={styles.avatar} source={{uri: avatarURL}} />*/}
+              {/*</FadeIn>*/}
+              {/*<FadeIn style={{*/}
+                {/*marginLeft : 5*/}
+              {/*}}>*/}
+                {/*<Image style={styles.avatar} source={{uri: avatarURL}} />*/}
+              {/*</FadeIn>*/}
             </View>
-            <TalkInfo
-              // start={start}
-              duration={duration}
-              // remindMe={this.props.isSpecial}
-              // isFinished={isFinished || isActive}
-              // showWhenFinished={this.props.showWhenFinished}
-              // toggleRemindMe={SBHelper.toggleReminder(title, start, isSpecial, setReminder, removeReminder)}
-              // onPressGithub={this.props.onPressGithub}
-              // onPressTwitter={this.props.onPressTwitter}
-            />
+            {/*<TalkInfo*/}
+              {/*// start={start}*/}
+              {/*duration={duration}*/}
+              {/*// remindMe={this.props.isSpecial}*/}
+              {/*// isFinished={isFinished || isActive}*/}
+              {/*// showWhenFinished={this.props.showWhenFinished}*/}
+              {/*// toggleRemindMe={SBHelper.toggleReminder(title, start, isSpecial, setReminder, removeReminder)}*/}
+              {/*// onPressGithub={this.props.onPressGithub}*/}
+              {/*// onPressTwitter={this.props.onPressTwitter}*/}
+            {/*/>*/}
           </Animated.View>
         </TouchableWithoutFeedback>
         {/* {isActive &&

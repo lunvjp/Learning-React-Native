@@ -85,7 +85,6 @@ export const loginGoogle = (res) => {
             payload: res.user
           });
           await AsyncStorage.setItem('accessToken', res.access_token);
-          // AsyncStorage.setItem('englishChatAppUser', res);
           resolve(res)
           /*END: Working's code*/
         })

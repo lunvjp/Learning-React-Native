@@ -1,5 +1,4 @@
-// const BASE_URL = 'http://localhost/englishchatapp/api'; // for Working
-const BASE_URL = 'http://englishchatapp.esy.es/api'; // for Living
+const BASE_URL = 'http://englishchatapp.esy.es/api';
 export const urls = {
   USER: {
     GET: BASE_URL + '/auth/user',

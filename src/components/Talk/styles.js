@@ -34,6 +34,8 @@ export default StyleSheet.create({
     padding: Metrics.doubleBaseMargin,
     borderTopLeftRadius: Metrics.cardRadius,
     borderTopRightRadius: Metrics.cardRadius,
+    borderBottomLeftRadius: Metrics.cardRadius,
+    borderBottomRightRadius: Metrics.cardRadius,
     backgroundColor: Colors.snow
   },
   infoText: {
