@@ -59,14 +59,7 @@ class Contact extends Component {
       // name,
       address: { city, country },
     } = this.props
-    // console.log('renderHeader')
-    // console.log(this.props);
-    const { name } = this.props.user;
-    console.log('jack check name')
-    console.log(name)
-    // const avatar = 'https://preview.ibb.co/ndTqXf/Jack-avatar.jpg';
-    const avatar = '';
-    // const avatar = 'https://facebook.github.io/react-native/docs/assets/favicon.png';
+    const { name, photo_url } = this.props.user;
 
     return (
       <View style={styles.headerContainer}>
@@ -81,25 +74,25 @@ class Contact extends Component {
             <Image
               style={styles.userImage}
               source={{
-                uri: avatar,
+                uri: photo_url,
               }}
             />
             <Text style={styles.userNameText}>{name}</Text>
-            <View style={styles.userAddressRow}>
-              <View>
-                <Icon
-                  name="place"
-                  underlayColor="transparent"
-                  iconStyle={styles.placeIcon}
-                  onPress={this.onPressPlace}
-                />
-              </View>
-              <View style={styles.userCityRow}>
-                <Text style={styles.userCityText}>
-                  {city}, {country}
-                </Text>
-              </View>
-            </View>
+            {/*<View style={styles.userAddressRow}>*/}
+              {/*<View>*/}
+                {/*<Icon*/}
+                  {/*name="place"*/}
+                  {/*underlayColor="transparent"*/}
+                  {/*iconStyle={styles.placeIcon}*/}
+                  {/*onPress={this.onPressPlace}*/}
+                {/*/>*/}
+              {/*</View>*/}
+              {/*<View style={styles.userCityRow}>*/}
+                {/*<Text style={styles.userCityText}>*/}
+                  {/*{city}, {country}*/}
+                {/*</Text>*/}
+              {/*</View>*/}
+            {/*</View>*/}
           </View>
         </ImageBackground>
       </View>

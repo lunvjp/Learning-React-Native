@@ -19,8 +19,6 @@ export const fetchUserFacebook = async (res) => {
     },
     body: JSON.stringify(res),
   });
-  // console.log('jack check login Facebook')
-  // console.log(response.json())
   return response.json();
 }
 
@@ -31,20 +29,17 @@ export const loginFacebook = (res) => {
     })
     return new Promise((resolve, reject) => {
       fetchUserFacebook(res)
-        .then(async (result) => {
-          console.log(result)
+        .then(async (res) => {
           dispatch({
             type: LOGIN.SUCCESS,
-            // payload: result // user
-            // update user global User
+            payload: res.access_token
           });
           dispatch({
             type: GET_AUTH_USER.SUCCESS,
-            payload: result
+            payload: res.user
           });
-          // AsyncStorage.setItem('englishChatAppUser', result);
-          // console.log( result )
-          resolve(result)
+          await AsyncStorage.setItem('accessToken', res.access_token);
+          resolve(res)
         })
         .catch((error) => {
           dispatch({
@@ -79,25 +74,30 @@ export const loginGoogle = (res) => {
     })
     return new Promise((resolve, reject) => {
       fetchUserGoogle(res)
-        .then(async (result) => {
+        .then(async (res) => {
+          /*Working's code*/
           dispatch({
-            type: LOGIN.SUCCESS
+            type: LOGIN.SUCCESS,
+            payload: res.access_token
           });
           dispatch({
             type: GET_AUTH_USER.SUCCESS,
-            payload: result // UPDATE: result.user
+            payload: res.user
           });
-          // await AsyncStorage.setItem('accessToken', result.access_token);
-          // AsyncStorage.setItem('englishChatAppUser', result);
-          resolve(result)
+          await AsyncStorage.setItem('accessToken', res.access_token);
+          // AsyncStorage.setItem('englishChatAppUser', res);
+          resolve(res)
+          /*END: Working's code*/
         })
         .catch((error) => {
+          /*Working's code*/
           dispatch({
             type: LOGIN.ERROR,
             payload: error
           });
           console.log( error )
           reject(error)
+          /*END: Working's code*/
         });
     });
   }
@@ -111,8 +111,6 @@ export const loginDefault = (email, password) => {
     return new Promise((resolve, reject) => {
       fetchAccessToken(email, password)
         .then(async (result) => {
-          // Check error with Login Fail
-          console.log(result)
           if (result.message) {
             dispatch({
               type: LOGIN.ERROR,

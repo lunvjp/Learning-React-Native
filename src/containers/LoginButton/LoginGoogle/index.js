@@ -22,7 +22,6 @@ GoogleSignin.configure();
 
 class LoginGoogle extends Component {
   onLoginGoogle = async () => {
-    // console.log(this.props)
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
